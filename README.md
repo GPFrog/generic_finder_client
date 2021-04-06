@@ -1,1 +1,0 @@
-# generic_finder_client
