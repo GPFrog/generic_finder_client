@@ -1,50 +1,51 @@
 package com.example.genericfinder;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
-    Toolbar toolbar;
+public class MainActivity extends BaseActivity {
+
+    EditText idInput, pwInput;
+    Button loginBtn, singUpBtn, nonmemberBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        idInput = (EditText)findViewById(R.id.idInput);
+        pwInput = (EditText)findViewById(R.id.pwInput);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_menu);
-        getSupportActionBar().setTitle("Generic Finder");
-    }
+        loginBtn = (Button)findViewById(R.id.loginBtn);
+//        loginBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //로그인 후 화면으로 이동
+//            }
+//        });
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu, menu);
-        return true;
-    }
+        singUpBtn = (Button)findViewById(R.id.singUpBtn);
+//        singUpBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //회원가입 화면으로 이동
+//            }
+//        });
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.menu_mdSearch:
-                return true;
-            case R.id.menu_phSearch:
-                return true;
-            case R.id.menu_searchRcd:
-                return true;
-            case R.id.menu_setting:
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        nonmemberBtn = (Button)findViewById(R.id.nonmemberBtn);
+//        nonmemberBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //비회원
+//            }
+//        });
     }
 }

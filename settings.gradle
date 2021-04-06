@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "GenericFinder"
+rootProject.name = "Generic Finder"
