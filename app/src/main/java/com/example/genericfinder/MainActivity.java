@@ -40,11 +40,14 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
         nonmemberBtn = (Button)findViewById(R.id.nonmemberBtn);
-//        nonmemberBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //비회원
-//            }
-//        });
+        nonmemberBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //비회원
+                //임시로 넘어가게 해놨음 0410 승환
+                Intent intent = new Intent(getApplicationContext(),MedicinePriceEnrollActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
