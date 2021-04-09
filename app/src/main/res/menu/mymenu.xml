@@ -8,7 +8,7 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/menu_menu_pharmSearch"
+        android:id="@+id/menu_pharmSearch"
         android:title="내 주변 약국 찾기"
         app:showAsAction="never" />
 
