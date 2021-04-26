@@ -1,6 +1,7 @@
 package com.example.genericfinder;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -43,5 +44,7 @@ public class Bookmark extends AppCompatActivity {
 
         mRecyclerView = findViewById(R.id.bookmarkRecyclev);
         mAdapter = new BookmarkAdapter(this);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

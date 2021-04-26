@@ -1,6 +1,7 @@
 package com.example.genericfinder;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class EnterPage extends BaseActivity {
+public class EnterPage extends AppCompatActivity {
 
     EditText idInput, pwInput;
     Button loginBtn, gosignUpBtn, nonmemberBtn;

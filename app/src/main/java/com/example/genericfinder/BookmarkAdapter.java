@@ -1,6 +1,8 @@
 package com.example.genericfinder;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookmarkViewHolder> {
     ArrayList<BookmarkData> bookmarkData = new ArrayList<>();
     LayoutInflater mInflater;
+    Context mContext;
 
     public BookmarkAdapter (Context context) {mInflater = LayoutInflater.from(context);}
 
@@ -47,12 +50,20 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
 
         public bookmarkViewHolder(final View itemView, BookmarkAdapter adapter) {
             super(itemView);
-
+            
             bookmarkName = itemView.findViewById(R.id.bookmarkName);
             bookmarkImg = itemView.findViewById(R.id.bookmarkImg);
             bm_priceBtn = itemView.findViewById(R.id.bm_priceBtn);
             bm_infoBtn = itemView.findViewById(R.id.bm_infoBtn);
 
+            //MedicineInfo 화면에서 getIntent
+            Intent bookmarkIntent = new Intent();
+            byte[] byteArr = bookmarkIntent.getByteArrayExtra("mediInfoImg");
+            bookmarkImg.setImageBitmap(BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length));
+
+            bookmarkName.setText(bookmarkIntent.getStringExtra("mediName"));
+
+            //가격보기 버튼클릭이벤트
             bm_priceBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
@@ -60,10 +71,14 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
                 }
             });
 
+            //상세보기 버튼클릭이벤트
             bm_infoBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-
+                    //MedicineInfo 페이지에 약 이름 넘겨주기(?)
+                    Intent goInfoIntent = new Intent(view.getContext(), MedicineInfo.class);
+                    goInfoIntent.putExtra("bookmarkName", bookmarkName.toString());
+                    mContext.startActivity(goInfoIntent);
                 }
             });
 
