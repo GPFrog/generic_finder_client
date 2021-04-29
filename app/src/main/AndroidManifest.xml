@@ -9,18 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".SearchMedicine"></activity>
-        <activity android:name=".ToolbarActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".FilterPopup"
+                  android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"/>
+        <activity android:name=".SearchResult" />
+        <activity android:name=".SearchMedicine" />
         <activity android:name=".MedicineInfo" />
         <activity android:name=".Bookmark" />
         <activity android:name=".SignUp" />
-        <activity android:name=".EnterPage" />
+        <activity android:name=".EnterPage">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity"></activity>
     </application>
 

@@ -20,7 +20,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
     LayoutInflater mInflater;
     Context mContext;
 
-    public BookmarkAdapter (Context context) {mInflater = LayoutInflater.from(context);}
+    public BookmarkAdapter(Context context) {mInflater = LayoutInflater.from(context);}
 
     @NonNull
     @Override
