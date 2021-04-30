@@ -1,5 +1,7 @@
 package com.example.genericfinder;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MedicinePriceEnrollActivity extends AppCompatActivity{
 
+    //현재 Activity 담아둘 객체
+    public static Activity medicinePriceEnrollActivity;
+
     EditText medicineCodeInput, pharmacyNumInput, priceInput;
     Button cancelBtn, enrollBtn;
 
@@ -17,6 +22,9 @@ public class MedicinePriceEnrollActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_price_enroll);
+
+        //현재 Activity 정보 담아두기
+        medicinePriceEnrollActivity = MedicinePriceEnrollActivity.this;
 
         medicineCodeInput = (EditText) findViewById(R.id.medicineCodeInput);
         pharmacyNumInput = (EditText) findViewById(R.id.pharmacyNumInput);
@@ -49,9 +57,15 @@ public class MedicinePriceEnrollActivity extends AppCompatActivity{
                     String pNum = pharmacyNumInput.getText().toString();
                     String price = priceInput.getText().toString();
 
+                    //########################################################################
                     //값 넘겨주는 것 작성
                     //테스트
                     Toast.makeText(v.getContext(),mCode+" / "+pNum+" / "+price,Toast.LENGTH_SHORT).show();
+
+                    //사용자 가격 삭제 화면으로 넘어가게..
+                    Intent intent = new Intent(getApplicationContext(),MedicinePriceDeleteUActivity.class);
+                    startActivity(intent);
+                    //########################################################################
                 }
             }
         });

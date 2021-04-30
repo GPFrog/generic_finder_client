@@ -26,15 +26,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="의약품 가격 등록"
-        android:textColor="@color/black"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="35dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.61" />
+        app:layout_constraintVertical_bias="0.510" />
 
     <TextView
         android:id="@+id/textView"
@@ -142,7 +142,7 @@
         app:layout_constraintHorizontal_bias="0.287"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.856" />
+        app:layout_constraintVertical_bias="0.909" />
 
     <Button
         android:id="@+id/enrollBtn"
@@ -160,7 +160,7 @@
         app:layout_constraintHorizontal_bias="0.705"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.856" />
+        app:layout_constraintVertical_bias="0.909" />
 
 
 

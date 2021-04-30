@@ -43,9 +43,14 @@ public class MainActivity extends AppCompatActivity {
         nonmemberBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //비회원
-                //임시로 넘어가게 해놨음 0410 승환
-                Intent intent = new Intent(getApplicationContext(),MedicinePriceEnrollActivity.class);
+//                //비회원
+//                //임시로 넘어가게 해놨음 0410 승환
+//                Intent intent = new Intent(getApplicationContext(),MedicinePriceEnrollActivity.class);
+//                startActivity(intent);
+
+                //지도 API 테스트, 약국조회화면 넘어가게
+                //0429 승환
+                Intent intent = new Intent(getApplicationContext(),PharmacyInfoActivity.class);
                 startActivity(intent);
             }
         });
