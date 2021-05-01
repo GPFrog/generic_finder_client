@@ -1,6 +1,7 @@
 package com.example.genericfinder;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
     public SearchResultAdapter(Context context) {mInflater = LayoutInflater.from(context);}
 
+    public SearchResultAdapter(ArrayList<SearchResultData> srData) {this.srData = srData;}
+
     @NonNull
     @Override
     public SearchResultAdapter.searchResultViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -37,11 +40,12 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     }
 
     @Override
-    public int getItemCount() {return srData.size();}
+    public int getItemCount() {return null != srData ? srData.size() : 0;}
 
     void addItem(SearchResultData data) {srData.add(data);}
 
     class searchResultViewHolder extends RecyclerView.ViewHolder {
+        String name;
         public final TextView result_name, result_price;
         public final ImageView result_img;
         public final Button result_info;
@@ -59,7 +63,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             result_info.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //약 상세 조회로 intent(약 이름으로?)
+                    //약 상세 조회로 (약 이름으로?)
                 }
             });
 

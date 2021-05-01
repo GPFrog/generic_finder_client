@@ -22,6 +22,8 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
 
     public BookmarkAdapter(Context context) {mInflater = LayoutInflater.from(context);}
 
+    public BookmarkAdapter(ArrayList<BookmarkData> bookmarkData) {this.bookmarkData = bookmarkData;}
+
     @NonNull
     @Override
     public BookmarkAdapter.bookmarkViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -63,11 +65,11 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
 
             bookmarkName.setText(bookmarkIntent.getStringExtra("mediName"));
 
-            //가격보기 버튼클릭이벤트
+            //가격정보 버튼클릭이벤트
             bm_priceBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-
+                
                 }
             });
 
@@ -75,7 +77,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
             bm_infoBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    //MedicineInfo 페이지에 약 이름 넘겨주기(?)
+                    //MedicineInfo 페이지에 약 이름 넘겨주기(?) -> 약 이름으로 해당 약 정보 띄우기
                     Intent goInfoIntent = new Intent(view.getContext(), MedicineInfo.class);
                     goInfoIntent.putExtra("bookmarkName", bookmarkName.toString());
                     mContext.startActivity(goInfoIntent);
