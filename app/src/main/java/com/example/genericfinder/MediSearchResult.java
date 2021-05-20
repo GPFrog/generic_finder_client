@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MediSearchResult extends Fragment {
 
@@ -50,9 +52,12 @@ public class MediSearchResult extends Fragment {
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //필터 버튼
-                Intent intent = new Intent(getActivity(), FilterPopup.class);
-                startActivity(intent);
+                //필터 버튼 (필터 팝업 띄우기)
+                Bundle bundle = new Bundle();
+
+                FilterPopup fpopup =  new FilterPopup();
+                fpopup.setArguments(bundle);
+                fpopup.show(getActivity().getSupportFragmentManager(), "FilterPopup");
             }
         });
 

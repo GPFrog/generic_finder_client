@@ -45,12 +45,12 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
     void addItem(BookmarkData data) {bookmarkData.add(data);}
 
     class bookmarkViewHolder extends RecyclerView.ViewHolder {
-        public final TextView bookmarkName;
-        public final ImageView bookmarkImg;
-        public final Button bm_priceBtn, bm_infoBtn;
-        final BookmarkAdapter mAdapter;
+        public TextView bookmarkName;
+        public ImageView bookmarkImg;
+        public Button bm_priceBtn, bm_infoBtn;
+        BookmarkAdapter mAdapter;
 
-        public bookmarkViewHolder(final View itemView, BookmarkAdapter adapter) {
+        public bookmarkViewHolder(View itemView, BookmarkAdapter adapter) {
             super(itemView);
             
             bookmarkName = itemView.findViewById(R.id.bookmarkName);
@@ -58,12 +58,12 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
             bm_priceBtn = itemView.findViewById(R.id.bm_priceBtn);
             bm_infoBtn = itemView.findViewById(R.id.bm_infoBtn);
 
-            //MedicineInfo 화면에서 getIntent
-            Intent bookmarkIntent = new Intent();
-            byte[] byteArr = bookmarkIntent.getByteArrayExtra("mediInfoImg");
-            bookmarkImg.setImageBitmap(BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length));
-
-            bookmarkName.setText(bookmarkIntent.getStringExtra("mediName"));
+//            //MedicineInfo 화면에서 getIntent
+//            Intent bookmarkIntent = new Intent();
+//            byte[] byteArr = bookmarkIntent.getByteArrayExtra("mediInfoImg");
+//            bookmarkImg.setImageBitmap(BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length));
+//
+//            bookmarkName.setText(bookmarkIntent.getStringExtra("mediName"));
 
             //가격정보 버튼클릭이벤트
             bm_priceBtn.setOnClickListener(new View.OnClickListener(){
@@ -77,10 +77,10 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
             bm_infoBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    //MedicineInfo 페이지에 약 이름 넘겨주기(?) -> 약 이름으로 해당 약 정보 띄우기
-                    Intent goInfoIntent = new Intent(view.getContext(), MedicineInfo.class);
-                    goInfoIntent.putExtra("bookmarkName", bookmarkName.toString());
-                    mContext.startActivity(goInfoIntent);
+//                    //MedicineInfo 페이지에 약 이름 넘겨주기(?) -> 약 이름으로 해당 약 정보 띄우기
+//                    Intent goInfoIntent = new Intent(view.getContext(), MedicineInfo.class);
+//                    goInfoIntent.putExtra("bookmarkName", bookmarkName.toString());
+//                    mContext.startActivity(goInfoIntent);
                 }
             });
 

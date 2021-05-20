@@ -2,6 +2,7 @@ package com.example.genericfinder;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -10,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +26,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     Toolbar myToolBar;
-    Fragment BookmarkFragment, EnterFragment, CurrentPosition, MedicineInfo, MedicineSearch, MedicineSearchResult, SignUpFragment;
+    Fragment BookmarkFragment, EnterFragment, CurrentPosition, MedicineInfo, MedicineSearch,
+            MedicineSearchResult, SignUpFragment, PharmacyInfo, MedicinePriceDeleteU,
+            MedicinePriceDeleteA, MedicinePriceEnroll;
     NavigationView nav_view;
 
     @Override
@@ -50,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.container, EnterFragment).commit();
 
         MedicineSearch = new MedicineSearch();
+//        PharmacyInfo = new PharmacyInfo();
+        BookmarkFragment = new BookmarkFragment();
+        MedicinePriceEnroll = new MedicinePriceEnroll();
+        MedicinePriceDeleteU = new MedicinePriceDeleteU();
+        MedicinePriceDeleteA = new MedicinePriceDeleteA();
 
         nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -57,17 +67,46 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_genericSearch:
-                        Toast.makeText(getApplicationContext(), "약 검색", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "의약품 검색", Toast.LENGTH_LONG).show();
                         replaceFragment(MedicineSearch);
                         break;
                     case R.id.menu_pharmSearch:
-                        Toast.makeText(getApplicationContext(), "약국 검색", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "내 주변 약국 찾기", Toast.LENGTH_LONG).show();
+//                        replaceFragment(PharmacyInfo);
+//                        Intent intent = new Intent(getApplicationContext(), PharmacyInfoActivity.class);
+//                        startActivity(intent);
                         break;
                     case R.id.menu_searchHistory:
                         Toast.makeText(getApplicationContext(), "검색 기록", Toast.LENGTH_LONG).show();
                         break;
-                    case R.id.menu_setting:
-                        Toast.makeText(getApplicationContext(), "설정", Toast.LENGTH_LONG).show();
+                    case R.id.menu_bookmark:
+                        Toast.makeText(getApplicationContext(), "즐겨찾기", Toast.LENGTH_LONG).show();
+                        replaceFragment(BookmarkFragment);
+                        break;
+                    case R.id.menu_priceDelete:
+                        Toast.makeText(getApplicationContext(), "약 가격 삭제", Toast.LENGTH_LONG).show();
+                        //비회원이면 안된다는 메시지
+                        //회원이면 회원 페이지
+                        //관리자면 관리자 페이지
+                        replaceFragment(MedicinePriceDeleteU);
+                        break;
+                    case R.id.menu_withdraw:
+                        AlertDialog.Builder dlg = new AlertDialog.Builder(getApplicationContext());
+                        dlg.setTitle("회원탈퇴");
+                        dlg.setMessage("회원탈퇴를 하시겠습니까?");
+                        dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //회원탈퇴 코드 추가해야함
+                                Toast.makeText(getApplicationContext(), "회원탈퇴되었습니다.", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getApplicationContext(), "취소되었습니다.", Toast.LENGTH_LONG).show();
+                            }
+                        });
                         break;
                 }
                 DrawerLayout drawer = findViewById(R.id.main_content);
@@ -90,60 +129,4 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택
     }
-
-//    public void replaceFragment(int fragmentIndex){
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//
-//        switch (fragmentIndex){
-//            case 0:
-//                // Enter 프래그먼트 호출
-//                EnterFragment = new EnterFragment();
-//                transaction.replace(R.id.container, EnterFragment);
-//                transaction.commit();
-//                break;
-//
-//            case 1:
-//                // 즐겨찾기 프래그먼트 호출
-//                BookmarkFragment = new BookmarkFragment();
-//                transaction.replace(R.id.container, BookmarkFragment);
-//                transaction.commit();
-//                break;
-//
-//            case 2:
-//                // 현재 위치 프래그먼트 호출
-//                CurrentPosition = new CurrentPosition();
-//                transaction.replace(R.id.container, CurrentPosition);
-//                transaction.commit();
-//                break;
-//
-//            case 3:
-//                // 약 상세 정보 프래그먼트 호출
-//                MedicineInfo = new MedicineInfo();
-//                transaction.replace(R.id.container, MedicineInfo);
-//                transaction.commit();
-//                break;
-//
-//            case 4:
-//                //의약품 검색 프래그먼트 호출
-//                MedicineSearch = new MedicineSearch();
-//                transaction.replace(R.id.container, MedicineSearch);
-//                transaction.commit();
-//                break;
-//
-//            case 5:
-//                //의약품 검색 결과 프래그먼트 호출
-//                MedicineSearchResult = new MediSearchResult();
-//                transaction.replace(R.id.container, MedicineSearchResult);
-//                transaction.commit();
-//                break;
-//
-//            case 6:
-//                //회원가입 프래그먼트 호출
-//                SignUpFragment = new SignupFragment();
-//                transaction.replace(R.id.container, SignUpFragment);
-//                transaction.commit();
-//                break;
-//        }
-//
-//    }
 }

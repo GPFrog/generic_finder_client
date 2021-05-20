@@ -29,6 +29,7 @@ public class BookmarkFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
     }
 
     @Override
@@ -36,7 +37,7 @@ public class BookmarkFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bookmark, container, false);
 
         Context context = view.getContext();
-        mRecyclerView = (RecyclerView) view;
+        mRecyclerView = view.findViewById(R.id.bookmarkRecyclev);
         mRecyclerView.setHasFixedSize(true);
 
         mLayoutManager = new LinearLayoutManager(context);

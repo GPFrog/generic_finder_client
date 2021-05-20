@@ -25,19 +25,30 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.166" />
 
+        <EditText
+            android:id="@+id/currentPEdit"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="현재 위치를 입력하세요."
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.576"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Button
             android:id="@+id/positionBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="확인"
-            android:background="#CED8F6"
             android:layout_marginBottom="15dp"
+            android:background="#CED8F6"
+            android:text="확인"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.913"
+            app:layout_constraintHorizontal_bias="0.829"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.953" />
+            app:layout_constraintVertical_bias="0.849" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

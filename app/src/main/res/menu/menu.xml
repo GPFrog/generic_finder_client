@@ -18,7 +18,18 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/menu_setting"
-        android:title="설정"
+        android:id="@+id/menu_priceDelete"
+        android:title="약 가격 삭제"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_bookmark"
+        android:title="즐겨찾기"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_withdraw"
+        android:title="회원탈퇴"
+        app:showAsAction="never" />
+
 </menu>

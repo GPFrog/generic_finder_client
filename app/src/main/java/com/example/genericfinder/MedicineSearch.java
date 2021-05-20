@@ -17,6 +17,7 @@ public class MedicineSearch extends Fragment {
     EditText serchName, serchIngredient, searchCompany, searchEffect;
     ImageButton searchBtn;
     Fragment MediSearchResult;
+    MainActivity mainActivity;
 
     public MedicineSearch() {
         // Required empty public constructor
@@ -42,7 +43,7 @@ public class MedicineSearch extends Fragment {
         searchBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //검색 정보 가지고 이동
+                //검색 정보로 DB에서 정보 불러와서 SearchResult에 띄움
 //                Bundle bundle = new Bundle();
 //                bundle.putString("serchName", serchName.toString());
 //                MediSearchResult.setArguments(bundle);

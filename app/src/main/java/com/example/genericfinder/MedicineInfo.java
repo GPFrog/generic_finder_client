@@ -16,6 +16,7 @@ public class MedicineInfo extends Fragment {
     ImageView mediInfoImg;
     ToggleButton bookmarkBtn;
     TextView mediName, mediCompany, mediIngedient, mediTake, mediCaution, avgPrice;
+    BookmarkFragment bookmarkFragment;
 
     public MedicineInfo() {
         // Required empty public constructor
@@ -37,6 +38,10 @@ public class MedicineInfo extends Fragment {
         mediTake = view.findViewById(R.id.mediTake);
         mediCaution = view.findViewById(R.id.mediCaution);
         avgPrice = view.findViewById(R.id.avgPrice);
+        bookmarkFragment = new BookmarkFragment();
+
+        Bundle bundle = getArguments();
+        bundle.get("result_name");
 
         //즐겨찾기 버튼 토글
         bookmarkBtn = view.findViewById(R.id.bookmarkBtn);
@@ -44,9 +49,12 @@ public class MedicineInfo extends Fragment {
             @Override
             public void onClick(View view) {
                 if (bookmarkBtn.isChecked()) {
-
+                    bookmarkBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.icon_yellow_star));
+                    Bundle bundle = new Bundle();
+                    bundle.putString("mediName", mediName.toString());
+                    bookmarkFragment.setArguments(bundle);
                 } else {
-
+                    bookmarkBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.icon_star));
                 }
             }
         });

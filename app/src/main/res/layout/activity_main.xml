@@ -19,13 +19,6 @@
             android:background="#A9BCF5"
             android:theme="@style/AppTheme">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:text="Generic Finder"/>
-
         </androidx.appcompat.widget.Toolbar>
 
         <FrameLayout
@@ -41,6 +34,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
         app:menu="@menu/menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

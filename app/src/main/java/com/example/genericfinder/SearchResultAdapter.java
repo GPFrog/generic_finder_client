@@ -46,10 +46,10 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
     class searchResultViewHolder extends RecyclerView.ViewHolder {
         String name;
-        public final TextView result_name, result_price;
-        public final ImageView result_img;
-        public final Button result_info;
-        final SearchResultAdapter mAdapter;
+        public TextView result_name, result_price;
+        public ImageView result_img;
+        public  Button result_info;
+        SearchResultAdapter mAdapter;
 
         public searchResultViewHolder(final View itemView, SearchResultAdapter adapter) {
             super(itemView);
@@ -64,6 +64,10 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 @Override
                 public void onClick(View view) {
                     //약 상세 조회로 (약 이름으로?)
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("result_name", result_name.toString());
+//                    MedicineInfo medicineInfo = new MedicineInfo();
+//                    medicineInfo.setArguments(bundle); // 데이터 전달
                 }
             });
 
