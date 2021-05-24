@@ -19,7 +19,6 @@ public class BookmarkFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     RecyclerView mRecyclerView;
     BookmarkAdapter mAdapter;
-    Button nearbyBtn;
     ArrayList<BookmarkData> bookmarkData;
 
     public BookmarkFragment(){
@@ -45,15 +44,6 @@ public class BookmarkFragment extends Fragment {
 
         mAdapter = new BookmarkAdapter(bookmarkData);
         mRecyclerView.setAdapter(mAdapter);
-
-        //근처 약국 보기
-        nearbyBtn = view.findViewById(R.id.nearbyBtn);
-        nearbyBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         return view;
     }

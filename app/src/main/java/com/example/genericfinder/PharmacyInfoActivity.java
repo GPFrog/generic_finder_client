@@ -1,6 +1,7 @@
 package com.example.genericfinder;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -61,8 +62,7 @@ public class PharmacyInfoActivity extends AppCompatActivity implements OnMapRead
         mapFragment.getMapAsync(this);
 
         // 위치를 반환하는 구현체인 FusedLocationSource 생성, 현재위치 담음
-        mLocationSource =
-                new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
+        mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
     }
 
     @UiThread

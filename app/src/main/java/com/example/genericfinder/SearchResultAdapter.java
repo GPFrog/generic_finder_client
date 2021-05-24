@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.searchResultViewHolder> {
@@ -33,10 +35,9 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     @Override
     public void onBindViewHolder(@NonNull SearchResultAdapter.searchResultViewHolder holder, int position) {
         holder.onBind(srData.get(position));
-
-        holder.result_name.setText(srData.get(position).getResultName());
-        holder.result_price.setText(srData.get(position).getResultPrice());
-        holder.result_img.setImageResource(srData.get(position).getResultImg());
+//        holder.result_name.setText(srData.get(position).getResultName());
+//        holder.result_price.setText(srData.get(position).getResultPrice());
+//        holder.result_img.setImageResource(Glide.with().load(srData.get(position).getResultImg()));
     }
 
     @Override
@@ -77,7 +78,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         void onBind(SearchResultData data) {
             result_name.setText(data.getResultName());
             result_price.setText(data.getResultPrice());
-            result_img.setImageResource(data.getResultImg());
+            Glide.with(itemView).load(data.getResultImg()).into(result_img);
         }
     }
 }

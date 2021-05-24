@@ -1,5 +1,6 @@
 package com.example.genericfinder;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class EnterFragment extends Fragment {
 
         CurrentPosition = new CurrentPosition();
         SignupFragment = new SignupFragment();
+        idInput = view.findViewById(R.id.idInput);
 
         loginBtn = view.findViewById(R.id.loginBtn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -45,8 +47,11 @@ public class EnterFragment extends Fragment {
                 //id DB에 있는지 확인
 
                 //로그인 시 id 로컬에 저장
-                SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("Value", MODE_PRIVATE);    // test 이름의 기본모드 설정
+                Context context = getActivity();
+                SharedPreferences sharedPreferences = context.getSharedPreferences("Value", MODE_PRIVATE);    // test 이름의 기본모드 설정
                 SharedPreferences.Editor editor = sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
+                String tmp = idInput.getText().toString();
+                Toast.makeText(view.getContext(),tmp, Toast.LENGTH_LONG);
                 editor.putString("id", idInput.getText().toString()); // key,value 형식으로 저장
                 editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.
 

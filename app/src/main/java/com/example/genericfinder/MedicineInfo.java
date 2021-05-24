@@ -40,8 +40,8 @@ public class MedicineInfo extends Fragment {
         avgPrice = view.findViewById(R.id.avgPrice);
         bookmarkFragment = new BookmarkFragment();
 
-        Bundle bundle = getArguments();
-        bundle.get("result_name");
+//        Bundle bundle = getArguments();
+//        bundle.get("result_name");
 
         //즐겨찾기 버튼 토글
         bookmarkBtn = view.findViewById(R.id.bookmarkBtn);

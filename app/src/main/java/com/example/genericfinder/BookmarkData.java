@@ -1,21 +1,21 @@
 package com.example.genericfinder;
 
 public class BookmarkData {
-    private int bookmarkImg;
+    private String bookmarkImg;
     private String bookmarkName;
 
-    public BookmarkData(int bookmarkImg, String bookmarkName) {
+    public BookmarkData(String bookmarkImg, String bookmarkName) {
         this.bookmarkImg =  bookmarkImg;
         this.bookmarkName = bookmarkName;
     }
 
     public BookmarkData() {
-        bookmarkImg = 0;
+        bookmarkImg = "";
         bookmarkName = "";
     }
 
-    public int getBookmarkImg() {return bookmarkImg;}
-    public void setBookmarkImg(int bookmarkImg) {this.bookmarkImg = bookmarkImg;}
+    public String getBookmarkImg() {return bookmarkImg;}
+    public void setBookmarkImg(String bookmarkImg) {this.bookmarkImg = bookmarkImg;}
 
     public String getBookmarkName() {return bookmarkName; }
     public void setBookmarkName(String bookmarkName) {this.bookmarkName = bookmarkName; }

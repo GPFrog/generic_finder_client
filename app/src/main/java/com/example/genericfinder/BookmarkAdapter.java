@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookmarkViewHolder> {
@@ -35,8 +37,8 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
     public void onBindViewHolder(@NonNull BookmarkAdapter.bookmarkViewHolder holder, int position) {
         holder.onBind(bookmarkData.get(position));
 
-        holder.bookmarkImg.setImageResource(bookmarkData.get(position).getBookmarkImg());
-        holder.bookmarkName.setText(bookmarkData.get(position).getBookmarkName());
+//        holder.bookmarkImg.setImageResource(bookmarkData.get(position).getBookmarkImg());
+//        holder.bookmarkName.setText(bookmarkData.get(position).getBookmarkName());
     }
 
     @Override
@@ -88,7 +90,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
         }
 
         void onBind(BookmarkData data) {
-            bookmarkImg.setImageResource(data.getBookmarkImg());
+            Glide.with(itemView).load(data.getBookmarkImg()).into(bookmarkImg);
             bookmarkName.setText(data.getBookmarkName());
         }
     }

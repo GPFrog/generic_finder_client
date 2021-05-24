@@ -46,7 +46,7 @@ public class BlackListEnrollPopup extends DialogFragment {
         blistCancleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //창 종료
+                //약 가격 삭제만 진행
                 getActivity().finish();
             }
         });
@@ -54,7 +54,7 @@ public class BlackListEnrollPopup extends DialogFragment {
         bListOkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //블랙리스트 등록 코드 추가해야함
+                //약 가격 삭제 + 블랙리스트 등록 코드 추가해야함
                 Toast.makeText(view.getContext(), "블랙리스트로 등록되었습니다.", Toast.LENGTH_LONG);
                 getActivity().finish();
             }

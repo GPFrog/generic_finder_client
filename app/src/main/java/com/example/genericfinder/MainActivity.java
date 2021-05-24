@@ -2,7 +2,6 @@ package com.example.genericfinder;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -11,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerLayout drawer = findViewById(R.id.main_content);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, myToolBar, R.string.nav_app_bar_open_drawer_description, R.string.nav_app_bar_navigate_up_description);
+                this, drawer, myToolBar, R.string.open, R.string.closed);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -76,9 +76,6 @@ public class MainActivity extends AppCompatActivity {
 //                        Intent intent = new Intent(getApplicationContext(), PharmacyInfoActivity.class);
 //                        startActivity(intent);
                         break;
-                    case R.id.menu_searchHistory:
-                        Toast.makeText(getApplicationContext(), "검색 기록", Toast.LENGTH_LONG).show();
-                        break;
                     case R.id.menu_bookmark:
                         Toast.makeText(getApplicationContext(), "즐겨찾기", Toast.LENGTH_LONG).show();
                         replaceFragment(BookmarkFragment);
@@ -91,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragment(MedicinePriceDeleteU);
                         break;
                     case R.id.menu_withdraw:
-                        AlertDialog.Builder dlg = new AlertDialog.Builder(getApplicationContext());
+                        AlertDialog.Builder dlg = new AlertDialog.Builder(MainActivity.this);
                         dlg.setTitle("회원탈퇴");
                         dlg.setMessage("회원탈퇴를 하시겠습니까?");
                         dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -104,9 +101,13 @@ public class MainActivity extends AppCompatActivity {
                         dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
                                 Toast.makeText(getApplicationContext(), "취소되었습니다.", Toast.LENGTH_LONG).show();
                             }
                         });
+
+//                        AlertDialog alertDialog = dlg.create();
+                        dlg.show();
                         break;
                 }
                 DrawerLayout drawer = findViewById(R.id.main_content);
@@ -129,4 +130,19 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택
     }
+
+    //뒤로가기
+//    public interface onKeyBackPressedListener { void onBackKey(); }
+//
+//    private onKeyBackPressedListener mOnKeyBackPressedListener;
+//
+//    public void setOnKeyBackPressedListener(onKeyBackPressedListener listener) {
+//        mOnKeyBackPressedListener = listener;
+//    }
+//
+//    @Override
+//    public void onBackPressed() {
+//        if(mOnKeyBackPressedListener != null) mOnKeyBackPressedListener.onBackKey();
+//        else super.onBackPressed();
+//    }
 }

@@ -13,11 +13,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/menu_searchHistory"
-        android:title="검색 기록"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/menu_priceDelete"
         android:title="약 가격 삭제"
         app:showAsAction="never" />
