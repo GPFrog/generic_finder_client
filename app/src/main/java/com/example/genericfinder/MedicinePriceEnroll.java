@@ -1,44 +1,45 @@
 package com.example.genericfinder;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class MedicinePriceEnrollActivity extends AppCompatActivity{
-
-    //현재 Activity 담아둘 객체
-    public static Activity medicinePriceEnrollActivity;
+public class MedicinePriceEnroll extends Fragment {
 
     EditText medicineCodeInput, pharmacyNumInput, priceInput;
     Button cancelBtn, enrollBtn;
 
+    public MedicinePriceEnroll() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_price_enroll);
+    }
 
-        //현재 Activity 정보 담아두기
-        medicinePriceEnrollActivity = MedicinePriceEnrollActivity.this;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_medicine_price_enroll, container, false);
 
-        medicineCodeInput = (EditText) findViewById(R.id.medicineCodeInput);
-        pharmacyNumInput = (EditText) findViewById(R.id.pharmacyNumInput);
-        priceInput = (EditText) findViewById(R.id.priceInput);
+        medicineCodeInput = view.findViewById(R.id.medicineCodeInput);
+        pharmacyNumInput = view.findViewById(R.id.pharmacyNumInput);
+        priceInput = view.findViewById(R.id.priceInput);
 
-        cancelBtn = (Button)findViewById(R.id.cancelBtn);
-        enrollBtn = (Button)findViewById(R.id.enrollBtn);
+        cancelBtn = view.findViewById(R.id.cancelBtn);
+        enrollBtn = view.findViewById(R.id.enrollBtn);
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //취소버튼 누름
-                onBackPressed();//뒤로 가기
-                overridePendingTransition(0, 0); //깔끔한 화면전환
             }
         });
 
@@ -46,9 +47,9 @@ public class MedicinePriceEnrollActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 //등록버튼 누름
-                if ( medicineCodeInput.getText().toString().length() == 0 ||
-                pharmacyNumInput.getText().toString().length()==0 ||
-                priceInput.getText().toString().length()==0) {
+                if (medicineCodeInput.getText().toString().length() == 0 ||
+                        pharmacyNumInput.getText().toString().length()==0 ||
+                        priceInput.getText().toString().length()==0) {
                     //공백일 때 예외처리
                     Toast.makeText(v.getContext(),"값을 입력해주세요",Toast.LENGTH_SHORT).show();
                 }else {
@@ -63,11 +64,11 @@ public class MedicinePriceEnrollActivity extends AppCompatActivity{
                     Toast.makeText(v.getContext(),mCode+" / "+pNum+" / "+price,Toast.LENGTH_SHORT).show();
 
                     //사용자 가격 삭제 화면으로 넘어가게..
-                    Intent intent = new Intent(getApplicationContext(),MedicinePriceDeleteUActivity.class);
-                    startActivity(intent);
                     //########################################################################
                 }
             }
         });
+
+        return view;
     }
 }

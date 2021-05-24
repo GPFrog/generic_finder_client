@@ -7,56 +7,68 @@
     android:layout_height="110dp">
 
     <ImageView
-        android:id="@+id/bookmarkImg"
-        android:layout_width="61dp"
-        android:layout_height="63dp"
+        android:id="@+id/result_img"
+        android:layout_width="94dp"
+        android:layout_height="52dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.432"
         app:srcCompat="@drawable/icon_medicine" />
 
     <TextView
-        android:id="@+id/bookmarkName"
+        android:id="@+id/result_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="의약품 명"
-        android:textSize="20dp"
+        android:text="제품명"
+        android:textColor="@color/black"
+        android:textSize="19dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toEndOf="@+id/result_img"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.464" />
+
+    <TextView
+        android:id="@+id/result_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="가격"
+        android:textSize="17dp"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.277"
+        app:layout_constraintHorizontal_bias="0.594"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.219" />
+        app:layout_constraintVertical_bias="0.482" />
 
-    <Button
-        android:id="@+id/bm_priceBtn"
+    <TextView
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_background"
-        android:textColor="@color/white"
-        android:text="가격정보"
-        android:textSize="15dp"
-        android:textStyle="bold"
+        android:text="원"
+        android:textSize="17dp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.634"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintStart_toEndOf="@+id/result_price"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.482" />
 
     <Button
-        android:id="@+id/bm_infoBtn"
+        android:id="@+id/result_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_background"
-        android:textColor="@color/white"
-        android:text="상세정보"
+        android:text="부가정보"
         android:textSize="15dp"
         android:textStyle="bold"
+        android:background="@drawable/btn_background"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
@@ -69,6 +81,7 @@
         android:layout_height="2dp"
         android:layout_centerInParent="true"
         android:background="#152451"
+        android:layout_marginRight="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

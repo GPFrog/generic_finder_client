@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <item
         android:id="@+id/menu_genericSearch"
         android:title="의약품 검색"
@@ -18,8 +18,18 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/menu_setting"
-        android:title="설정"
+        android:id="@+id/menu_priceDelete"
+        android:title="약 가격 삭제"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_bookmark"
+        android:title="즐겨찾기"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_withdraw"
+        android:title="회원탈퇴"
         app:showAsAction="never" />
 
 </menu>

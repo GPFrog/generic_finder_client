@@ -4,12 +4,12 @@ public class BookmarkData {
     private int bookmarkImg;
     private String bookmarkName;
 
-    public void BookmarkData(int bookmarkImg, String bookmarkName) {
+    public BookmarkData(int bookmarkImg, String bookmarkName) {
         this.bookmarkImg =  bookmarkImg;
         this.bookmarkName = bookmarkName;
     }
 
-    public void BookmarkData() {
+    public BookmarkData() {
         bookmarkImg = 0;
         bookmarkName = "";
     }
