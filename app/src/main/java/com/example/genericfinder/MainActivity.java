@@ -13,12 +13,16 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.genericfinder.httpConnector.RequestTask;
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
         MedicinePriceDeleteU = new MedicinePriceDeleteU();
         MedicinePriceDeleteA = new MedicinePriceDeleteA();
 
+        SharedPreferences sharedPreferences = getSharedPreferences("authority", MODE_PRIVATE);
+        SharedPreferences sPreferences = getSharedPreferences("id", MODE_PRIVATE);
+        String authority = sharedPreferences.toString();
+        String id = sPreferences.toString();
+
         nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -80,12 +89,19 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "즐겨찾기", Toast.LENGTH_LONG).show();
                         replaceFragment(BookmarkFragment);
                         break;
+                    case R.id.menu_priceEnroll:
+                        //회원 -> 가능
+                        if(authority == "1") replaceFragment(MedicinePriceEnroll);
+                        else Toast.makeText(getApplicationContext(), "약 가격 등록이 불가능합니다.", Toast.LENGTH_LONG).show();
+                        break;
                     case R.id.menu_priceDelete:
                         Toast.makeText(getApplicationContext(), "약 가격 삭제", Toast.LENGTH_LONG).show();
-                        //비회원이면 안된다는 메시지
                         //회원이면 회원 페이지
+                        if(authority == "1") replaceFragment(MedicinePriceDeleteU);
                         //관리자면 관리자 페이지
-                        replaceFragment(MedicinePriceDeleteU);
+                        else if(authority == "2") replaceFragment(MedicinePriceDeleteA);
+                        //비회원이면 안된다는 메시지
+                        else Toast.makeText(getApplicationContext(), "로그인이 필요한 메뉴입니다.", Toast.LENGTH_LONG).show();
                         break;
                     case R.id.menu_withdraw:
                         AlertDialog.Builder dlg = new AlertDialog.Builder(MainActivity.this);
@@ -95,7 +111,18 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //회원탈퇴 코드 추가해야함
-                                Toast.makeText(getApplicationContext(), "회원탈퇴되었습니다.", Toast.LENGTH_LONG).show();
+                                RequestTask requestTask = new RequestTask();
+                                String rtResult = null;
+
+                                try {
+                                    rtResult = requestTask.execute("", "id=" + id).get();
+                                    JSONObject jsonObject = new JSONObject(rtResult);
+                                    
+                                    if(jsonObject.toString().contains("true")) Toast.makeText(getApplicationContext(), "회원탈퇴되었습니다.", Toast.LENGTH_SHORT).show();
+                                    else Toast.makeText(getApplicationContext(), "회원탈퇴에 실패했습니다.", Toast.LENGTH_LONG).show();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         });
                         dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -105,8 +132,6 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "취소되었습니다.", Toast.LENGTH_LONG).show();
                             }
                         });
-
-//                        AlertDialog alertDialog = dlg.create();
                         dlg.show();
                         break;
                 }

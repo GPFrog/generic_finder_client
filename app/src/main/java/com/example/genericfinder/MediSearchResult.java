@@ -31,6 +31,11 @@ public class MediSearchResult extends Fragment {
     ArrayList<SearchResultData> searchResultData;
     Button filterBtn;
 
+    public Bundle getArgument() {
+        Bundle bundle = getArguments();
+        return bundle;
+    }
+
     public MediSearchResult() {
         // Required empty public constructor
     }
@@ -59,6 +64,7 @@ public class MediSearchResult extends Fragment {
             @Override
             public void onClick(View view) {
                 //필터 버튼 (필터 팝업 띄우기)
+                //검색 결과 보내기
                 Bundle bundle = new Bundle();
 
                 FilterPopup fpopup =  new FilterPopup();

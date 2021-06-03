@@ -22,8 +22,9 @@ public class MedicinePriceDeleteA extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     RecyclerView mRecyclerView;
     MedicinePriceDeleteAAdapter mAdapter;
-    Button cancelBtn, deleteBtn;
+    Button cancelBtn;
     ArrayList<MedicinePriceData> mpdata;
+    Fragment MedicineSearch;
 
     public MedicinePriceDeleteA() {
         // Required empty public constructor
@@ -46,32 +47,20 @@ public class MedicinePriceDeleteA extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new MedicinePriceDeleteAAdapter(mpdata);
         mRecyclerView.setAdapter(mAdapter);
+        MedicineSearch = new MedicineSearch();
 
         cancelBtn = view.findViewById(R.id.cancelBtn);
-        deleteBtn = view.findViewById(R.id.deleteBtn);
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //이렇게 하면 메뉴 버튼 눌려서 들어갈 때는 돌아갈 페이지 없음
-                //검색 화면으로 돌아가야하낭
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().remove(MedicinePriceDeleteA.this).commit();
-                fragmentManager.popBackStack();
-            }
-        });
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                fragmentManager.beginTransaction().remove(MedicinePriceDeleteA.this).commit();
+//                fragmentManager.popBackStack();
 
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //삭제버튼 누름
-                Bundle bundle = new Bundle();
-                //고객 아이디 전달
-                bundle.putString("", " ");
-
-                BlackListEnrollPopup popup =  new BlackListEnrollPopup();
-                popup.setArguments(bundle);
-                popup.show(getActivity().getSupportFragmentManager(), "tag");
+                //검색 화면으로 돌아가게 한담
+                ((MainActivity)getActivity()).replaceFragment(MedicineSearch);
             }
         });
 

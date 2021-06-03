@@ -1,17 +1,12 @@
 package com.example.genericfinder;
 
 public class CompanyCheckData {
-    private String company1;
-    private String company2;
+    private String company;
 
-    public CompanyCheckData(String company1, String company2) {
-        this.company1 = company1;
-        this.company2 = company2;
+    public CompanyCheckData(String company) {
+        this.company = company;
     }
 
-    public String getCompany1() { return company1; }
-    public void setCompany1(String company1) { this.company1 = company1; }
-
-    public String getCompany2() { return company2; }
-    public void setCompany2(String company2) { this.company2 = company2; }
+    public String getCompany() { return company; }
+    public void setCompany(String company) { this.company = company; }
 }
