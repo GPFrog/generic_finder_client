@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.container, EnterFragment).commit();
 
         MedicineSearch = new MedicineSearch();
-//        PharmacyInfo = new PharmacyInfo();
+        PharmacyInfo = new PharmacyInfo();
         BookmarkFragment = new BookmarkFragment();
         MedicinePriceEnroll = new MedicinePriceEnroll();
         MedicinePriceDeleteU = new MedicinePriceDeleteU();
@@ -81,9 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.menu_pharmSearch:
                         Toast.makeText(getApplicationContext(), "내 주변 약국 찾기", Toast.LENGTH_LONG).show();
-//                        replaceFragment(PharmacyInfo);
-//                        Intent intent = new Intent(getApplicationContext(), PharmacyInfoActivity.class);
-//                        startActivity(intent);
+                        replaceFragment(PharmacyInfo);
                         break;
                     case R.id.menu_bookmark:
                         Toast.makeText(getApplicationContext(), "즐겨찾기", Toast.LENGTH_LONG).show();
