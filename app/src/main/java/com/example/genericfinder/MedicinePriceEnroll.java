@@ -11,10 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.genericfinder.httpConnector.RequestTask;
+
+import org.json.JSONObject;
+
 public class MedicinePriceEnroll extends Fragment {
 
     EditText medicineCodeInput, pharmacyNumInput, priceInput;
     Button cancelBtn, enrollBtn;
+    Fragment MedicineSearch, MedicinePriceDeleteU;
 
     public MedicinePriceEnroll() {
         // Required empty public constructor
@@ -32,6 +37,8 @@ public class MedicinePriceEnroll extends Fragment {
         medicineCodeInput = view.findViewById(R.id.medicineCodeInput);
         pharmacyNumInput = view.findViewById(R.id.pharmacyNumInput);
         priceInput = view.findViewById(R.id.priceInput);
+        MedicineSearch = new MedicineSearch();
+        MedicinePriceDeleteU = new MedicinePriceDeleteU();
 
         cancelBtn = view.findViewById(R.id.cancelBtn);
         enrollBtn = view.findViewById(R.id.enrollBtn);
@@ -39,7 +46,8 @@ public class MedicinePriceEnroll extends Fragment {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //취소버튼 누름
+                //의약품 검색 화면으로
+                ((MainActivity)getActivity()).replaceFragment(MedicineSearch);
             }
         });
 
@@ -58,13 +66,22 @@ public class MedicinePriceEnroll extends Fragment {
                     String pNum = pharmacyNumInput.getText().toString();
                     String price = priceInput.getText().toString();
 
-                    //########################################################################
                     //값 넘겨주는 것 작성
-                    //테스트
-                    Toast.makeText(v.getContext(),mCode+" / "+pNum+" / "+price,Toast.LENGTH_SHORT).show();
+                    RequestTask requestTask = new RequestTask();
+                    String rtResult = null;
 
-                    //사용자 가격 삭제 화면으로 넘어가게..
-                    //########################################################################
+                    try {
+                        rtResult = requestTask.execute("", "medicineCodeInput=" + medicineCodeInput.toString(), "&pharmacyNumInput=" + pharmacyNumInput.toString(), "&priceInput=" + priceInput.toString()).get();
+                        JSONObject jsonObject = new JSONObject(rtResult);
+                        
+                        if(jsonObject.toString().contains("true")) Toast.makeText(view.getContext(), "등록되었습니다.", Toast.LENGTH_SHORT).show();
+                        else Toast.makeText(view.getContext(), "등록에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    //사용자 가격 삭제 화면으로 넘어가게
+                    ((MainActivity)getActivity()).replaceFragment(MedicinePriceDeleteU);
                 }
             }
         });

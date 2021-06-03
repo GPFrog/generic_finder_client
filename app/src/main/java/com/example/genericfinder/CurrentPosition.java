@@ -1,5 +1,6 @@
 package com.example.genericfinder;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -35,13 +36,15 @@ public class CurrentPosition extends Fragment {
         View view = inflater.inflate(R.layout.fragment_current_position, container, false);
 
         MedicineSearch = new MedicineSearch();
+        currentPEdit = view.findViewById(R.id.currentPEdit);
 
         positionBtn = view.findViewById(R.id.positionBtn);
         positionBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 //현재 위치 로컬에 저장
-                SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("Value", MODE_PRIVATE);    // test 이름의 기본모드 설정
+                Context context = getActivity();
+                SharedPreferences sharedPreferences = context.getSharedPreferences("Value", MODE_PRIVATE);    // test 이름의 기본모드 설정
                 SharedPreferences.Editor editor = sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
                 editor.putString("currentPosition", currentPEdit.getText().toString()); // key,value 형식으로 저장
                 editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.

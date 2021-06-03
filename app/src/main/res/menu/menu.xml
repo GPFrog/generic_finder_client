@@ -13,8 +13,8 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/menu_searchHistory"
-        android:title="검색 기록"
+        android:id="@+id/menu_priceEnroll"
+        android:title="약 가격 등록"
         app:showAsAction="never" />
 
     <item

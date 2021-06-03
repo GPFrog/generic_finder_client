@@ -1,5 +1,7 @@
 package com.example.genericfinder;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -10,6 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.genericfinder.httpConnector.RequestTask;
+
+import org.json.JSONObject;
 
 public class BlackListEnrollPopup extends DialogFragment {
 
@@ -33,8 +39,8 @@ public class BlackListEnrollPopup extends DialogFragment {
         bListOkBtn = view.findViewById(R.id.bListOkBtn);
 
         Bundle bundle = getArguments();
-        //고객 아이디 받기
-        String value = bundle.getString("");
+        //고객 이메일 받기
+        String value = bundle.getString("userEmail");
 
         fragment = getActivity().getSupportFragmentManager().findFragmentByTag("tag");
 
@@ -46,7 +52,6 @@ public class BlackListEnrollPopup extends DialogFragment {
         blistCancleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //창 종료
                 getActivity().finish();
             }
         });
@@ -54,8 +59,20 @@ public class BlackListEnrollPopup extends DialogFragment {
         bListOkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //블랙리스트 등록 코드 추가해야함
-                Toast.makeText(view.getContext(), "블랙리스트로 등록되었습니다.", Toast.LENGTH_LONG);
+                RequestTask requestTask = new RequestTask();
+                String rtResult = null;
+
+                try {
+                    //이메일로 블랙리스트 등록
+                    rtResult = requestTask.execute("", "userEmail=" + value).get();
+                    JSONObject jsonObject = new JSONObject(rtResult);
+
+                    if(jsonObject.toString().contains("true")) Toast.makeText(view.getContext(), "블랙리스트로 등록되었습니다.", Toast.LENGTH_LONG).show();
+                    else Toast.makeText(view.getContext(), "블랙리스트 등록에 실패했습니다.", Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 getActivity().finish();
             }
         });

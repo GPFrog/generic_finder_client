@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
@@ -19,6 +20,10 @@ public class FilterPopup extends DialogFragment {
     SeekBar price_bar;
     TextView priceText;
     Button filterCheckBtn;
+    MediSearchResult mediSearchResult;
+    FilterResult filterResult;
+    CompanyCheckAdapter companyAdapter;
+    SymptomCheckAdapter symptomAdapter;
 
     public FilterPopup() {
         // Required empty public constructor
@@ -33,7 +38,7 @@ public class FilterPopup extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_filter_popup, container, false);
 
-        Bundle bundle = getArguments();
+        Bundle getBundle = getArguments();
         fragment = getActivity().getSupportFragmentManager().findFragmentByTag("FilterPopup");
 
 //        if(fragment != null) {
@@ -63,12 +68,24 @@ public class FilterPopup extends DialogFragment {
             }
         });
 
+        mediSearchResult = new MediSearchResult();
+        filterResult = new FilterResult();
+        companyAdapter = new CompanyCheckAdapter();
+        symptomAdapter = new SymptomCheckAdapter();
+
+        String[] companyChecked = companyAdapter.getCheckedCompany();
+        String[] symptomChecked = symptomAdapter.getCheckedSymptom();
+
         filterCheckBtn = view.findViewById(R.id.filterCheckBtn);
         filterCheckBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //데이터 가져와라ㅏ
-                dismiss();
+                Bundle bundle = new Bundle();
+                bundle.putStringArray("companyChecked", companyChecked);
+                bundle.putStringArray("symptomChecked", symptomChecked);
+                filterResult.setArguments(bundle);
+
+                ((MainActivity)getActivity()).replaceFragment(filterResult);
             }
         });
 
