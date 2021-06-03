@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         MedicinePriceEnroll = new MedicinePriceEnroll();
         MedicinePriceDeleteU = new MedicinePriceDeleteU();
         MedicinePriceDeleteA = new MedicinePriceDeleteA();
+        PharmacyInfo = new PharmacyInfo(); //0528 승환 추가
 
         nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -71,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.menu_pharmSearch:
                         Toast.makeText(getApplicationContext(), "내 주변 약국 찾기", Toast.LENGTH_LONG).show();
-
-                        //약국 조회 Activity 전환
-                        Intent intent = new Intent(getApplicationContext(), PharmacyInfoActivity.class);
-                        startActivity(intent);
+                        replaceFragment(PharmacyInfo); //0529 프래그먼트 된당...! -승환-
+//                        //약국 조회 Activity 전환
+//                        Intent intent = new Intent(getApplicationContext(), PharmacyInfoActivity.class);
+//                        startActivity(intent);
                         break;
                     case R.id.menu_searchHistory:
                         Toast.makeText(getApplicationContext(), "검색 기록", Toast.LENGTH_LONG).show();
