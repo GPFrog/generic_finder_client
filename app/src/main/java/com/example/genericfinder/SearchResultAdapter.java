@@ -78,7 +78,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             String tmp = "";
 
             if(searchName == "" && searchIngredient == "" && searchCompany == "" && searchEffect == "") {
-                Toast.makeText(itemView.getContext(), "하나 이상의 값을 입력하세요.", Toast.LENGTH_LONG).show();
+                Toast.makeText(itemView.getContext(), "하나 이상의 값을 입력하세요.", Toast.LENGTH_SHORT).show();
             }
             else {
                 try {
@@ -99,12 +99,12 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                     rtResult = requestTask.execute("", tmp).get();
 
                     JSONObject jsonObject = new JSONObject(rtResult);
-                    JSONArray jsonArray = jsonObject.getJSONArray("");
+                    JSONArray jsonArray = jsonObject.getJSONArray("medicineArray");
                     for(int i=0 ; i<jsonArray.length() ; i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        result_name.setText(object.getString(""));
-                        result_price.setText(object.getString(""));
-                        Glide.with(itemView).load(object.getString("")).into(result_img);
+                        result_name.setText(object.getString("medicineName"));
+                        result_price.setText(object.getString("medicinePrice"));
+                        Glide.with(itemView).load(object.getString("medicineImage")).into(result_img);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -57,7 +57,7 @@ public class MedicineSearch extends Fragment {
                 MediSearchResult.setArguments(bundle);
                 FilterPopup.setArguments(bundle);
 
-                Toast.makeText(view.getContext(),"검색 완료 후 페이지 이동", Toast.LENGTH_LONG);
+                Toast.makeText(view.getContext(),"검색 완료 후 페이지 이동", Toast.LENGTH_SHORT);
                 ((MainActivity)getActivity()).replaceFragment(MediSearchResult);
             }
         });

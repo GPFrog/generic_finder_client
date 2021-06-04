@@ -91,10 +91,10 @@ public class CompanyCheckAdapter extends RecyclerView.Adapter<CompanyCheckAdapte
                 rtResult = requestTask.execute("", tmp).get();
 
                 JSONObject jsonObject = new JSONObject(rtResult);
-                JSONArray jsonArray = jsonObject.getJSONArray("");
+                JSONArray jsonArray = jsonObject.getJSONArray("companyArray");
                 for(int i=0 ; i<jsonArray.length() ; i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
-                    company.setText(object.getString(""));
+                    company.setText(object.getString("company"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();

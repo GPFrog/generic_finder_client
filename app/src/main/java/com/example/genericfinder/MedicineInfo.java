@@ -66,40 +66,37 @@ public class MedicineInfo extends Fragment {
             rtResult = requestTask.execute("", "medicineName=" + medicineName).get();
             JSONObject jsonObject = new JSONObject(rtResult);
 
-            mediName.setText(jsonObject.getString(""));
-            mediCompany.setText(jsonObject.getString(""));
-            mediIngedient.setText(jsonObject.getString(""));
-            mediTake.setText(jsonObject.getString(""));
-            mediCaution.setText(jsonObject.getString(""));
-            mediCaution.setText(jsonObject.getString(""));
-            avgPrice.setText(jsonObject.getString(""));
-            Glide.with(view).load(jsonObject.getString("")).into(mediInfoImg);
+            mediName.setText(jsonObject.getString("medicineName"));
+            mediCompany.setText(jsonObject.getString("medicineCompany"));
+            mediIngedient.setText(jsonObject.getString("medicineIngredient"));
+            mediTake.setText(jsonObject.getString("medicineTake"));
+            mediCaution.setText(jsonObject.getString("medicineCaution"));
+            avgPrice.setText(jsonObject.getString("avgPrice"));
+            Glide.with(view).load(jsonObject.getString("medicineImage")).into(mediInfoImg);
 
             //즐겨찾기 -> 상세정보
             bmResult = requestTask.execute("", "medicineName=" + bookmarkName).get();
             JSONObject jObject = new JSONObject(bmResult);
 
-            mediName.setText(jObject.getString(""));
-            mediCompany.setText(jObject.getString(""));
-            mediIngedient.setText(jObject.getString(""));
-            mediTake.setText(jObject.getString(""));
-            mediCaution.setText(jObject.getString(""));
-            mediCaution.setText(jObject.getString(""));
-            avgPrice.setText(jObject.getString(""));
-            Glide.with(view).load(jObject.getString("")).into(mediInfoImg);
+            mediName.setText(jObject.getString("medicineName"));
+            mediCompany.setText(jObject.getString("medicineCompany"));
+            mediIngedient.setText(jObject.getString("medicineIngredient"));
+            mediTake.setText(jObject.getString("medicineTake"));
+            mediCaution.setText(jObject.getString("medicineCaution"));
+            avgPrice.setText(jObject.getString("avgPrice"));
+            Glide.with(view).load(jObject.getString("medicineImage")).into(mediInfoImg);
 
             //필터결과 -> 상세정보
             frResult = requestTask.execute("", "medicineName=" + filterName).get();
             JSONObject object = new JSONObject(frResult);
 
-            mediName.setText(object.getString(""));
-            mediCompany.setText(object.getString(""));
-            mediIngedient.setText(object.getString(""));
-            mediTake.setText(object.getString(""));
-            mediCaution.setText(object.getString(""));
-            mediCaution.setText(object.getString(""));
-            avgPrice.setText(object.getString(""));
-            Glide.with(view).load(object.getString("")).into(mediInfoImg);
+            mediName.setText(object.getString("medicineName"));
+            mediCompany.setText(object.getString("medicineCompany"));
+            mediIngedient.setText(object.getString("medicineIngredient"));
+            mediTake.setText(object.getString("medicineTake"));
+            mediCaution.setText(object.getString("medicineCaution"));
+            avgPrice.setText(object.getString("avgPrice"));
+            Glide.with(view).load(object.getString("medicineImage")).into(mediInfoImg);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -79,14 +79,14 @@ public class MedicinePriceDeleteUAdapter extends RecyclerView.Adapter<MedicinePr
             try {
                 rt = requestTask.execute("", "id=" + id).get();
                 JSONObject json = new JSONObject(rt);
-                JSONArray jsonArray = json.getJSONArray("");
+                JSONArray jsonArray = json.getJSONArray("priceInfoArray");
 
                 for(int i=0 ; i<jsonArray.length() ; i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
-                    enrollDate.setText(object.getString(""));
-                    pName.setText(object.getString(""));
-                    mName.setText(object.getString(""));
-                    mPrice.setText(object.getString(""));
+                    enrollDate.setText(object.getString("enrollDate"));
+                    pName.setText(object.getString("pharmacyName"));
+                    mName.setText(object.getString("medicineName"));
+                    mPrice.setText(object.getString("medicinePrice"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -110,7 +110,7 @@ public class MedicinePriceDeleteUAdapter extends RecyclerView.Adapter<MedicinePr
                                 rtResult = requestTask.execute("", "enrollDate=" + enrollDate.toString(), "&mName=" + mName.toString(), "&id=" + id).get();
                                 JSONObject jsonObject = new JSONObject();
                                 
-                                if(jsonObject.toString().contains("true")) Toast.makeText(itemView.getContext(), "삭제되었습니다.", Toast.LENGTH_LONG).show();
+                                if(jsonObject.toString().contains("true")) Toast.makeText(itemView.getContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                                 else Toast.makeText(itemView.getContext(), "삭제에 실패했습니다.", Toast.LENGTH_LONG).show();
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -122,7 +122,7 @@ public class MedicinePriceDeleteUAdapter extends RecyclerView.Adapter<MedicinePr
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            Toast.makeText(itemView.getContext(), "취소되었습니다.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(itemView.getContext(), "취소되었습니다.", Toast.LENGTH_SHORT).show();
                         }
                     });
                     dlg.show();

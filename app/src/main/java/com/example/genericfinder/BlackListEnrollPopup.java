@@ -67,8 +67,8 @@ public class BlackListEnrollPopup extends DialogFragment {
                     rtResult = requestTask.execute("", "userEmail=" + value).get();
                     JSONObject jsonObject = new JSONObject(rtResult);
 
-                    if(jsonObject.toString().contains("true")) Toast.makeText(view.getContext(), "블랙리스트로 등록되었습니다.", Toast.LENGTH_LONG).show();
-                    else Toast.makeText(view.getContext(), "블랙리스트 등록에 실패했습니다.", Toast.LENGTH_LONG).show();
+                    if(jsonObject.toString().contains("true")) Toast.makeText(view.getContext(), "블랙리스트로 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(view.getContext(), "블랙리스트 등록에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

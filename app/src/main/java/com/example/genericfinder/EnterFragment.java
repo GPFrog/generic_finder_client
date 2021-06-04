@@ -65,23 +65,23 @@ public class EnterFragment extends Fragment {
                             //사용자
                             editor.putString("id", idInput.getText().toString()); // key,value 형식으로 저장
                             editor.putString("authority", "1");
-                            Toast.makeText(view.getContext(),"로그인 되었습니다.", Toast.LENGTH_LONG);
+                            Toast.makeText(view.getContext(),"로그인 되었습니다.", Toast.LENGTH_SHORT);
                             ((MainActivity)getActivity()).replaceFragment(CurrentPosition);
                         }
                         else if(jsonObject.toString().contains("2")) {
                             //관리자
                             editor.putString("id", idInput.getText().toString()); // key,value 형식으로 저장
                             editor.putString("authority", "2");
-                            Toast.makeText(view.getContext(),"로그인 되었습니다.", Toast.LENGTH_LONG);
+                            Toast.makeText(view.getContext(),"로그인 되었습니다.", Toast.LENGTH_SHORT);
                             ((MainActivity)getActivity()).replaceFragment(CurrentPosition);
                         }
                         else if(jsonObject.toString().contains("3")) {
                             //블랙리스트
-                            Toast.makeText(view.getContext(),"로그인에 실패했습니다.", Toast.LENGTH_LONG);
+                            Toast.makeText(view.getContext(),"로그인에 실패했습니다.", Toast.LENGTH_SHORT);
                         }
                     }
                     else {
-                        Toast.makeText(view.getContext(),"id 또는 pw가 잘못되었습니다.", Toast.LENGTH_LONG);
+                        Toast.makeText(view.getContext(),"id 또는 pw가 잘못되었습니다.", Toast.LENGTH_SHORT);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -103,7 +103,7 @@ public class EnterFragment extends Fragment {
         nonmemberBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(),"비회원 페이지 이동", Toast.LENGTH_LONG);
+                Toast.makeText(view.getContext(),"비회원 페이지 이동", Toast.LENGTH_SHORT);
                 ((MainActivity)getActivity()).replaceFragment(CurrentPosition);
             }
         });

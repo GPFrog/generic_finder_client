@@ -49,7 +49,7 @@ public class CurrentPosition extends Fragment {
                 editor.putString("currentPosition", currentPEdit.getText().toString()); // key,value 형식으로 저장
                 editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.
 
-                Toast.makeText(view.getContext(),"의약품 검색 페이지 이동", Toast.LENGTH_LONG);
+                Toast.makeText(view.getContext(),"의약품 검색 페이지 이동", Toast.LENGTH_SHORT);
                 ((MainActivity)getActivity()).replaceFragment(MedicineSearch);
             }
         });

@@ -93,8 +93,8 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
                 rtResult = requestTask.execute("", "mediName=" + mediName).get();
                 JSONObject jsonObject = new JSONObject(rtResult);
 
-                bookmarkName.setText(jsonObject.getString(""));
-                Glide.with(itemView).load(jsonObject.getString("")).into(bookmarkImg);
+                bookmarkName.setText(jsonObject.getString("medicineName"));
+                Glide.with(itemView).load(jsonObject.getString("medicineImage")).into(bookmarkImg);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -109,7 +109,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
                     try {
                         rqResult = requestTask.execute("", "mediName=" + mediName).get();
                         JSONObject jObject = new JSONObject(rqResult);
-                        JSONArray jsonArray = jObject.getJSONArray("");
+                        JSONArray jsonArray = jObject.getJSONArray("medicineInformation");
                         int size = jsonArray.length();
 
                         String[] pName = new String[size];
@@ -118,9 +118,9 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
 
                         for(int i=0 ; i<size ; i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-                            pName[i] = object.getString("");
-                            pLocation[i] = object.getString("");
-                            price[i] = object.getString("");
+                            pName[i] = object.getString("pharmacyName");
+                            pLocation[i] = object.getString("pharmacyLocation");
+                            price[i] = object.getString("price");
                         }
 
                         AlertDialog.Builder dlg = new AlertDialog.Builder(itemView.getContext());

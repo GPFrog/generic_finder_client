@@ -83,13 +83,13 @@ public class FilterResultAdapter extends RecyclerView.Adapter<FilterResultAdapte
                 rtResult = requestTask.execute("", "companyChecked=" + ctmp + "&symptomChecked=" + stmp).get();
 
                 JSONObject jsonObject = new JSONObject(rtResult);
-                JSONArray jsonArray = jsonObject.getJSONArray("");
+                JSONArray jsonArray = jsonObject.getJSONArray("medicineArray");
 
                 for(int i=0 ; i<jsonArray.length() ; i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
-                    fr_name.setText(object.getString(""));
-                    fr_price.setText(object.getString(""));
-                    Glide.with(itemView).load(object.getString("")).into(fr_img);
+                    fr_name.setText(object.getString("medicineName"));
+                    fr_price.setText(object.getString("medicinePrice"));
+                    Glide.with(itemView).load(object.getString("medicineImage")).into(fr_img);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

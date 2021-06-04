@@ -75,14 +75,14 @@ public class MedicinePriceDeleteAAdapter extends RecyclerView.Adapter<MedicinePr
             //전체 약 가격 list 가져오기
             try {
                 JSONObject jsonObject = new JSONObject();
-                JSONArray jsonArray = jsonObject.getJSONArray("");
+                JSONArray jsonArray = jsonObject.getJSONArray("priceInfoArray");
 
                 for(int i=0 ; i<jsonArray.length() ; i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
-                    enrollDate.setText(object.getString(""));
-                    pName.setText(object.getString(""));
-                    mName.setText(object.getString(""));
-                    userEmail.setText(object.getString(""));
+                    enrollDate.setText(object.getString("enrollDate"));
+                    pName.setText(object.getString("pharmacyName"));
+                    mName.setText(object.getString("medicineName"));
+                    userEmail.setText(object.getString("userEmail"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -100,8 +100,8 @@ public class MedicinePriceDeleteAAdapter extends RecyclerView.Adapter<MedicinePr
                         rtResult = requestTask.execute("", "enrollDate=" + enrollDate.toString(), "&mName=" + mName.toString() + "&userEmail=" + userEmail.toString()).get();
                         JSONObject jObject = new JSONObject(rtResult);
 
-                        if(jObject.toString().contains("true")) Toast.makeText(itemView.getContext(), "삭제되었습니다.", Toast.LENGTH_LONG).show();
-                        else Toast.makeText(itemView.getContext(), "삭제에 실패했습니다.", Toast.LENGTH_LONG).show();
+                        if(jObject.toString().contains("true")) Toast.makeText(itemView.getContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                        else Toast.makeText(itemView.getContext(), "삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

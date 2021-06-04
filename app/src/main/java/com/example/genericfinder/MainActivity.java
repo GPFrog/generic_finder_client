@@ -76,30 +76,30 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_genericSearch:
-                        Toast.makeText(getApplicationContext(), "의약품 검색", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "의약품 검색", Toast.LENGTH_SHORT).show();
                         replaceFragment(MedicineSearch);
                         break;
                     case R.id.menu_pharmSearch:
-                        Toast.makeText(getApplicationContext(), "내 주변 약국 찾기", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "내 주변 약국 찾기", Toast.LENGTH_SHORT).show();
                         replaceFragment(PharmacyInfo);
                         break;
                     case R.id.menu_bookmark:
-                        Toast.makeText(getApplicationContext(), "즐겨찾기", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "즐겨찾기", Toast.LENGTH_SHORT).show();
                         replaceFragment(BookmarkFragment);
                         break;
                     case R.id.menu_priceEnroll:
                         //회원 -> 가능
                         if(authority == "1") replaceFragment(MedicinePriceEnroll);
-                        else Toast.makeText(getApplicationContext(), "약 가격 등록이 불가능합니다.", Toast.LENGTH_LONG).show();
+                        else Toast.makeText(getApplicationContext(), "약 가격 등록이 불가능합니다.", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.menu_priceDelete:
-                        Toast.makeText(getApplicationContext(), "약 가격 삭제", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "약 가격 삭제", Toast.LENGTH_SHORT).show();
                         //회원이면 회원 페이지
                         if(authority == "1") replaceFragment(MedicinePriceDeleteU);
                         //관리자면 관리자 페이지
                         else if(authority == "2") replaceFragment(MedicinePriceDeleteA);
                         //비회원이면 안된다는 메시지
-                        else Toast.makeText(getApplicationContext(), "로그인이 필요한 메뉴입니다.", Toast.LENGTH_LONG).show();
+                        else Toast.makeText(getApplicationContext(), "로그인이 필요한 메뉴입니다.", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.menu_withdraw:
                         AlertDialog.Builder dlg = new AlertDialog.Builder(MainActivity.this);
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                                     JSONObject jsonObject = new JSONObject(rtResult);
                                     
                                     if(jsonObject.toString().contains("true")) Toast.makeText(getApplicationContext(), "회원탈퇴되었습니다.", Toast.LENGTH_SHORT).show();
-                                    else Toast.makeText(getApplicationContext(), "회원탈퇴에 실패했습니다.", Toast.LENGTH_LONG).show();
+                                    else Toast.makeText(getApplicationContext(), "회원탈퇴에 실패했습니다.", Toast.LENGTH_SHORT).show();
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "취소되었습니다.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "취소되었습니다.", Toast.LENGTH_SHORT).show();
                             }
                         });
                         dlg.show();

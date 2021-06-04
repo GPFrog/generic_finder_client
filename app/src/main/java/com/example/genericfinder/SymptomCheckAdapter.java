@@ -89,10 +89,10 @@ public class SymptomCheckAdapter extends RecyclerView.Adapter<SymptomCheckAdapte
                 rtResult = requestTask.execute("", tmp).get();
 
                 JSONObject jsonObject = new JSONObject(rtResult);
-                JSONArray jsonArray = jsonObject.getJSONArray("");
+                JSONArray jsonArray = jsonObject.getJSONArray("symptomArray");
                 for(int i=0 ; i<jsonArray.length() ; i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
-                    symptom.setText(object.getString(""));
+                    symptom.setText(object.getString("symptom"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
