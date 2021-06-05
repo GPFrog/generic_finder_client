@@ -43,6 +43,7 @@ public class EnterFragment extends Fragment {
         CurrentPosition = new CurrentPosition();
         SignupFragment = new SignupFragment();
         idInput = view.findViewById(R.id.idInput);
+        String url = "http://119.56.228.77:39283/";
 
         loginBtn = view.findViewById(R.id.loginBtn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +87,7 @@ public class EnterFragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                
+
                 editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.
             }
         });
@@ -104,6 +105,20 @@ public class EnterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(),"비회원 페이지 이동", Toast.LENGTH_SHORT);
+
+                //서버 연결 테스트
+                RequestTask request = new RequestTask();
+                String result = null;
+
+                try {
+                    result = request.execute(url + "medicineDetail?medicineCode=198600441").get();
+                    System.out.println(result);
+                    JSONObject jsonObject = new JSONObject(result);
+                    System.out.println(jsonObject.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 ((MainActivity)getActivity()).replaceFragment(CurrentPosition);
             }
         });

@@ -1,6 +1,7 @@
 package com.example.genericfinder.httpConnector;
 
 import android.os.AsyncTask;
+import android.security.NetworkSecurityPolicy;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -21,21 +22,24 @@ public class RequestTask extends AsyncTask<String, Void, String> {
             String str;
             URL url = new URL(strings[0]);
 
+            System.out.println(url);
+
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
 
             OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-            String sendMsg = strings[1].replaceAll("\\`", "\\\\`" ).replaceAll("\\\"", "\\\\\"" ).replaceAll("\\'", "\\\\'" );
-            osw.write(sendMsg);
+//            String sendMsg = strings[1].replaceAll("\\`", "\\\\`" ).replaceAll("\\\"", "\\\\\"" ).replaceAll("\\'", "\\\\'" );
+//            osw.write(sendMsg);
             osw.flush();
 
-            if(conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8);
-                BufferedReader reader = new BufferedReader(tmp);
-                StringBuilder buffer = new StringBuilder();
+                System.out.println(conn.getResponseCode());
+                if(conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8);
+                    BufferedReader reader = new BufferedReader(tmp);
+                    StringBuilder buffer = new StringBuilder();
 
-                while ((str = reader.readLine()) != null) {
+                    while ((str = reader.readLine()) != null) {
                     buffer.append(str);
                 }
 
