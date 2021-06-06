@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PipedInputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -47,12 +48,12 @@ public class RequestTask extends AsyncTask<String, Void, String> {
 
 //                System.out.println(conn.getResponseCode());
 //                System.out.println(conn.getResponseMessage());
-                if(conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8);
-                    BufferedReader reader = new BufferedReader(tmp);
-                    StringBuilder buffer = new StringBuilder();
+            if(conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8);
+                BufferedReader reader = new BufferedReader(tmp);
+                StringBuilder buffer = new StringBuilder();
 
-                    while ((str = reader.readLine()) != null) {
+                while ((str = reader.readLine()) != null) {
                     buffer.append(str);
                 }
 

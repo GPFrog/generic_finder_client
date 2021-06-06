@@ -28,14 +28,14 @@
             app:layout_constraintVertical_bias="0.159" />
 
         <EditText
-            android:id="@+id/idInput"
+            android:id="@+id/emailInput"
             android:layout_width="270dp"
             android:layout_height="37dp"
             android:layout_marginStart="13dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toEndOf="@+id/idText"
+            app:layout_constraintStart_toEndOf="@+id/emailText"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.629" />
 
@@ -47,7 +47,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toEndOf="@+id/idText"
+            app:layout_constraintStart_toEndOf="@+id/emailText"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.748" />
 
@@ -55,31 +55,33 @@
             android:id="@+id/pwText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PW :"
+            android:layout_marginBottom="8dp"
+            android:text="PW      :"
+            android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.061"
+            app:layout_constraintHorizontal_bias="0.089"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.749" />
+            app:layout_constraintVertical_bias="0.752" />
 
         <TextView
-            android:id="@+id/idText"
+            android:id="@+id/emailText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ID :"
+            android:layout_marginBottom="4dp"
+            android:text="EMAIL  :"
+            android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintHorizontal_bias="0.064"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.631" />
+            app:layout_constraintVertical_bias="0.635" />
 
         <Button
             android:id="@+id/loginBtn"
