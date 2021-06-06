@@ -23,9 +23,10 @@ import static android.content.Context.MODE_PRIVATE;
 public class EnterFragment extends Fragment {
 
     MainActivity mainActivity;
-    EditText idInput, pwInput;
+    EditText emailInput, pwInput;
     Button loginBtn, gosignUpBtn, nonmemberBtn;
-    Fragment CurrentPosition, SignupFragment;
+    Fragment SignupFragment, MedicineSearch;
+    Fragment FilterPopup; //테스트
 
     public EnterFragment() {
         // Required empty public constructor
@@ -40,11 +41,14 @@ public class EnterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_enter, container, false);
 
-        CurrentPosition = new CurrentPosition();
+        FilterPopup = new FilterPopup(); //테스트
+
+        MedicineSearch = new MedicineSearch();
         SignupFragment = new SignupFragment();
-        idInput = view.findViewById(R.id.idInput);
+        emailInput = view.findViewById(R.id.emailInput);
         String url = "http://119.56.228.77:39283/";
 
+        //로그인
         loginBtn = view.findViewById(R.id.loginBtn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,23 +62,23 @@ public class EnterFragment extends Fragment {
                 SharedPreferences.Editor editor = sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
 
                 try {
-                    rtResult = requestTask.execute("", "id=" + idInput.toString(), "&pw=" + pwInput.toString()).get();
+                    rtResult = requestTask.execute("", "id=" + emailInput.toString(), "&pw=" + pwInput.toString()).get();
                     JSONObject jsonObject = new JSONObject(rtResult);
 
                     if(jsonObject.toString().contains("true")) {
                         if(jsonObject.toString().contains("1")) {
                             //사용자
-                            editor.putString("id", idInput.getText().toString()); // key,value 형식으로 저장
+                            editor.putString("id", emailInput.getText().toString()); // key,value 형식으로 저장
                             editor.putString("authority", "1");
                             Toast.makeText(view.getContext(),"로그인 되었습니다.", Toast.LENGTH_SHORT);
-                            ((MainActivity)getActivity()).replaceFragment(CurrentPosition);
+                            ((MainActivity)getActivity()).replaceFragment(MedicineSearch);
                         }
                         else if(jsonObject.toString().contains("2")) {
                             //관리자
-                            editor.putString("id", idInput.getText().toString()); // key,value 형식으로 저장
+                            editor.putString("id", emailInput.getText().toString()); // key,value 형식으로 저장
                             editor.putString("authority", "2");
                             Toast.makeText(view.getContext(),"로그인 되었습니다.", Toast.LENGTH_SHORT);
-                            ((MainActivity)getActivity()).replaceFragment(CurrentPosition);
+                            ((MainActivity)getActivity()).replaceFragment(MedicineSearch);
                         }
                         else if(jsonObject.toString().contains("3")) {
                             //블랙리스트
@@ -92,6 +96,7 @@ public class EnterFragment extends Fragment {
             }
         });
 
+        //회원가입
         gosignUpBtn = view.findViewById(R.id.gosignUpBtn);
         gosignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,26 +105,28 @@ public class EnterFragment extends Fragment {
             }
         });
 
+        //비회원
         nonmemberBtn = view.findViewById(R.id.nonmemberBtn);
         nonmemberBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(),"비회원 페이지 이동", Toast.LENGTH_SHORT);
 
-                //서버 연결 테스트
-                RequestTask request = new RequestTask();
-                String result = null;
-
-                try {
-                    result = request.execute(url + "medicineDetail?medicineCode=198600441").get();
-                    System.out.println(result);
-                    JSONObject jsonObject = new JSONObject(result);
-                    System.out.println(jsonObject.toString());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                ((MainActivity)getActivity()).replaceFragment(CurrentPosition);
+//                //서버 연결 테스트
+//                RequestTask request = new RequestTask();
+//                String result = null;
+//
+//                try {
+//                    result = request.execute(url + "medicineDetail?medicineCode=198600441").get();
+//                    System.out.println(result);
+//                    JSONObject jsonObject = new JSONObject(result);
+//                    System.out.println(jsonObject.toString());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//                ((MainActivity)getActivity()).replaceFragment(MedicineSearch);
+                ((MainActivity)getActivity()).replaceFragment(FilterPopup); //테스트
             }
         });
 
