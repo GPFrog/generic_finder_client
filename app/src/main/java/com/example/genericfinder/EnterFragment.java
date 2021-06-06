@@ -107,17 +107,17 @@ public class EnterFragment extends Fragment {
                 Toast.makeText(view.getContext(),"비회원 페이지 이동", Toast.LENGTH_SHORT);
 
                 //서버 연결 테스트
-                RequestTask request = new RequestTask();
-                String result = null;
-
-                try {
-                    result = request.execute(url + "medicineDetail?medicineCode=198600441").get();
-                    System.out.println(result);
-                    JSONObject jsonObject = new JSONObject(result);
-                    System.out.println(jsonObject.toString());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                RequestTask request = new RequestTask();
+//                String result = null;
+//
+//                try {
+//                    result = request.execute(url + "medicineDetail?medicineCode=198600441").get();
+//                    System.out.println(result);
+//                    JSONObject jsonObject = new JSONObject(result);
+//                    System.out.println(jsonObject.toString());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
 
                 ((MainActivity)getActivity()).replaceFragment(CurrentPosition);
             }

@@ -104,7 +104,9 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                         JSONObject object = jsonArray.getJSONObject(i);
                         result_name.setText(object.getString("medicineName"));
                         result_price.setText(object.getString("medicinePrice"));
-                        Glide.with(itemView).load(object.getString("medicineImage")).into(result_img);
+
+                        if(object.getString("medicineImage") == null) result_img.setImageResource(R.drawable.icon_medi_default);
+                        else Glide.with(itemView).load(object.getString("medicineImage")).into(result_img);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

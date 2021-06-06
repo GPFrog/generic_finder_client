@@ -1,12 +1,16 @@
 package com.example.genericfinder;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -16,12 +20,20 @@ import com.example.genericfinder.httpConnector.RequestTask;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class MedicineInfo extends Fragment {
 
     ImageView mediInfoImg;
     ToggleButton bookmarkBtn;
+    Button priceEnrollBtn;
     TextView mediName, mediCompany, mediIngedient, mediTake, mediCaution, avgPrice;
     BookmarkFragment bookmarkFragment;
+    MedicinePriceEnroll medicinePriceEnroll;
+    RecyclerView.LayoutManager mLayoutManager;
+    RecyclerView mRecyclerView;
+    InfoUserPriceAdapter mAdapter;
+    ArrayList<InfoUserPriceData> ipData;
 
     public MedicineInfo() {
         // Required empty public constructor
@@ -45,20 +57,30 @@ public class MedicineInfo extends Fragment {
         avgPrice = view.findViewById(R.id.avgPrice);
         bookmarkFragment = new BookmarkFragment();
 
+        Context context = view.getContext();
+        mRecyclerView = view.findViewById(R.id.mediUserRecyclerv);
+        mRecyclerView.setHasFixedSize(true);
+
+        mLayoutManager = new LinearLayoutManager(context);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new InfoUserPriceAdapter(ipData);
+        mRecyclerView.setAdapter(mAdapter);
+
         //SearchResult에서 약 이름 받아오기
-        Bundle bundle = getArguments();
-        String medicineName = bundle.getString("result_name");
+        Bundle getBundle = getArguments();
+        String medicineName = getBundle.getString("result_name");
 
         //약 이름으로 DB에서 약 정보 들고오기
         RequestTask requestTask = new RequestTask();
         String rtResult = null;
 
         //BookmarkAdapter에서 약 이름 받아오기
-        String bookmarkName = bundle.getString("bookmarkName");
+        String bookmarkName = getBundle.getString("bookmarkName");
         String bmResult = null;
 
         //FilterResultAdapter에서 약 이름 받아오기
-        String filterName = bundle.getString("fr_name");
+        String filterName = getBundle.getString("fr_name");
         String frResult = null;
 
         try {
@@ -101,6 +123,9 @@ public class MedicineInfo extends Fragment {
             e.printStackTrace();
         }
 
+        Bundle bundle = new Bundle();
+        bundle.putString("mediName", mediName.toString());
+
         //즐겨찾기 버튼 토글
         bookmarkBtn = view.findViewById(R.id.bookmarkBtn);
         bookmarkBtn.setOnClickListener(new View.OnClickListener() {
@@ -110,14 +135,24 @@ public class MedicineInfo extends Fragment {
                     bookmarkBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.icon_yellow_star));
 
                     //즐겨찾기 조회 페이지로 약 이름 넘겨줌
-                    Bundle bundle = new Bundle();
-                    bundle.putString("mediName", mediName.toString());
                     bookmarkFragment.setArguments(bundle);
                 } else {
                     bookmarkBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.icon_star));
                 }
             }
         });
+
+        //약 가격 등록 버튼
+        priceEnrollBtn = view.findViewById(R.id.priceEnrollBtn);
+        priceEnrollBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //약 이름 enroll에 보내기
+                medicinePriceEnroll.setArguments(bundle);
+                ((MainActivity)getActivity()).replaceFragment(medicinePriceEnroll);
+            }
+        });
+
         return view;
     }
 }

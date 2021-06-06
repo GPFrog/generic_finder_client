@@ -9,19 +9,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MedicinePriceDeleteA extends Fragment {
+public class MedicinePriceDeleteA extends Fragment implements TextWatcher {
 
     private RecyclerView.LayoutManager mLayoutManager;
     RecyclerView mRecyclerView;
     MedicinePriceDeleteAAdapter mAdapter;
+    EditText priceSearch;
     Button cancelBtn;
     ArrayList<MedicinePriceData> mpdata;
     Fragment MedicineSearch;
@@ -45,12 +49,16 @@ public class MedicinePriceDeleteA extends Fragment {
 
         mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        priceSearch = view.findViewById(R.id.priceSearch);
+        priceSearch.addTextChangedListener(this);
+
+//        mAdapter = new MedicinePriceDeleteAAdapter(view.getContext(), mpdata);
         mAdapter = new MedicinePriceDeleteAAdapter(mpdata);
         mRecyclerView.setAdapter(mAdapter);
         MedicineSearch = new MedicineSearch();
 
         cancelBtn = view.findViewById(R.id.cancelBtn);
-
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,5 +73,20 @@ public class MedicinePriceDeleteA extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
     }
 }

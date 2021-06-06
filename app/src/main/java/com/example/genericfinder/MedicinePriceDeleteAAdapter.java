@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,9 +21,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MedicinePriceDeleteAAdapter extends RecyclerView.Adapter<MedicinePriceDeleteAAdapter.MediPriceDeleteViewHolder> {
+public class MedicinePriceDeleteAAdapter extends RecyclerView.Adapter<MedicinePriceDeleteAAdapter.MediPriceDeleteViewHolder> implements Filterable {
     ArrayList<MedicinePriceData> mpData = new ArrayList<>();
+    ArrayList<MedicinePriceData> filterlist;
     LayoutInflater mInflater;
     Context mContext;
     Fragment MedicinePriceDeleteA;
@@ -29,6 +33,11 @@ public class MedicinePriceDeleteAAdapter extends RecyclerView.Adapter<MedicinePr
     public MedicinePriceDeleteAAdapter(Context context) {mInflater = LayoutInflater.from(context);}
 
     public MedicinePriceDeleteAAdapter(ArrayList<MedicinePriceData> mpData) {this.mpData = mpData;}
+
+    public MedicinePriceDeleteAAdapter(Context context, ArrayList<MedicinePriceData> mpData) {
+        this.mpData = mpData;
+        this.filterlist = mpData;
+    }
 
     @NonNull
     @Override
@@ -52,6 +61,38 @@ public class MedicinePriceDeleteAAdapter extends RecyclerView.Adapter<MedicinePr
     public int getItemCount() {return mpData.size();}
 
     void addItem(MedicinePriceData data) {mpData.add(data);}
+
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<MedicinePriceData> filtering = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0) filtering.addAll(mpData);
+            else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for(MedicinePriceData item : mpData) {
+                    if(item.getmName().toLowerCase().contains(filterPattern)) filterlist.add(item);
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filterlist;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mpData.clear();
+            mpData.addAll((List)results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     class MediPriceDeleteViewHolder extends RecyclerView.ViewHolder {
         TextView enrollDate, pName, mName, mPrice, userEmail;
@@ -113,8 +154,7 @@ public class MedicinePriceDeleteAAdapter extends RecyclerView.Adapter<MedicinePr
             bundle.putString("userEmail", userEmail.toString());
             mainActivity.replaceFragment(BlackListEnrollPopup);
 //            ((MainActivity).getActivity()).replaceFragment(BlackListEnrollPopup);
-            MedicinePriceDeleteA = new MedicinePriceDeleteA();
-            MedicinePriceDeleteA.setArguments(bundle);
+            BlackListEnrollPopup.setArguments(bundle);
 
             this.mAdapter = adapter;
         }
