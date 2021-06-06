@@ -46,7 +46,7 @@ public class EnterFragment extends Fragment {
         MedicineSearch = new MedicineSearch();
         SignupFragment = new SignupFragment();
         emailInput = view.findViewById(R.id.emailInput);
-        String url = "http://119.56.228.77:39283/";
+        String url = "http://152.70.89.118:4321/";
 
         //로그인
         loginBtn = view.findViewById(R.id.loginBtn);
