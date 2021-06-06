@@ -48,7 +48,6 @@ public class FilterResultAdapter extends RecyclerView.Adapter<FilterResultAdapte
 
     class filterResultViewHolder extends RecyclerView.ViewHolder {
         public TextView fr_name, fr_price;
-        public ImageView fr_img;
         public Button fr_info;
         FilterResultAdapter mAdapter;
 
@@ -57,7 +56,6 @@ public class FilterResultAdapter extends RecyclerView.Adapter<FilterResultAdapte
 
             fr_name = itemView.findViewById(R.id.fr_name);
             fr_price = itemView.findViewById(R.id.fr_price);
-            fr_img = itemView.findViewById(R.id.fr_img);
 
             //제조사, 증상으로 DB에서 약 정보 들고오기
             FilterPopup filterPopup = new FilterPopup();
@@ -89,7 +87,6 @@ public class FilterResultAdapter extends RecyclerView.Adapter<FilterResultAdapte
                     JSONObject object = jsonArray.getJSONObject(i);
                     fr_name.setText(object.getString("medicineName"));
                     fr_price.setText(object.getString("medicinePrice"));
-                    Glide.with(itemView).load(object.getString("medicineImage")).into(fr_img);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

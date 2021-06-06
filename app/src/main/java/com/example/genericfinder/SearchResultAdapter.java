@@ -53,7 +53,6 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
     class searchResultViewHolder extends RecyclerView.ViewHolder {
         public TextView result_name, result_price;
-        public ImageView result_img;
         public Button result_info;
         SearchResultAdapter mAdapter;
 
@@ -62,7 +61,6 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
             result_name = itemView.findViewById(R.id.result_name);
             result_price = itemView.findViewById(R.id.result_price);
-            result_img = itemView.findViewById(R.id.result_img);
             result_info = itemView.findViewById(R.id.result_info);
 
             MedicineSearch medicineSearch = new MedicineSearch();
@@ -104,9 +102,6 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                         JSONObject object = jsonArray.getJSONObject(i);
                         result_name.setText(object.getString("medicineName"));
                         result_price.setText(object.getString("medicinePrice"));
-
-                        if(object.getString("medicineImage") == null) result_img.setImageResource(R.drawable.icon_medi_default);
-                        else Glide.with(itemView).load(object.getString("medicineImage")).into(result_img);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

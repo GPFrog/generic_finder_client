@@ -1,12 +1,8 @@
 package com.example.genericfinder;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.genericfinder.httpConnector.RequestTask;
+import androidx.fragment.app.Fragment;
 
+import com.example.genericfinder.httpConnector.RequestTask;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -45,7 +46,9 @@ public class EnterFragment extends Fragment {
 
         MedicineSearch = new MedicineSearch();
         SignupFragment = new SignupFragment();
+
         emailInput = view.findViewById(R.id.emailInput);
+        pwInput = view.findViewById(R.id.pwInput);
         String url = "http://152.70.89.118:4321/";
 
         //로그인
@@ -62,28 +65,31 @@ public class EnterFragment extends Fragment {
                 SharedPreferences.Editor editor = sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
 
                 try {
-                    rtResult = requestTask.execute("", "id=" + emailInput.toString(), "&pw=" + pwInput.toString()).get();
-                    JSONObject jsonObject = new JSONObject(rtResult);
+                    rtResult = requestTask.execute(url + "signin?id=" + emailInput.getText().toString() + "&password=" + pwInput.getText().toString()).get();
+                    rtResult = rtResult.replaceAll("\"", "");
+                    String arr[] = rtResult.split("/");
 
-                    if(jsonObject.toString().contains("true")) {
-                        if(jsonObject.toString().contains("1")) {
+                    if(arr[0].compareTo("ok") == 0) {
+                        if(arr[1].compareTo("1") == 0) {
                             //사용자
+                            System.out.println("안녕");
                             editor.putString("id", emailInput.getText().toString()); // key,value 형식으로 저장
                             editor.putString("authority", "1");
                             Toast.makeText(view.getContext(),"로그인 되었습니다.", Toast.LENGTH_SHORT);
                             ((MainActivity)getActivity()).replaceFragment(MedicineSearch);
                         }
-                        else if(jsonObject.toString().contains("2")) {
+                        else if(arr[1].compareTo("2") == 0) {
                             //관리자
                             editor.putString("id", emailInput.getText().toString()); // key,value 형식으로 저장
                             editor.putString("authority", "2");
                             Toast.makeText(view.getContext(),"로그인 되었습니다.", Toast.LENGTH_SHORT);
                             ((MainActivity)getActivity()).replaceFragment(MedicineSearch);
                         }
-                        else if(jsonObject.toString().contains("3")) {
+                        else if(arr[1].compareTo("3") == 0) {
                             //블랙리스트
                             Toast.makeText(view.getContext(),"로그인에 실패했습니다.", Toast.LENGTH_SHORT);
                         }
+                        else System.out.println("equals 아님");
                     }
                     else {
                         Toast.makeText(view.getContext(),"id 또는 pw가 잘못되었습니다.", Toast.LENGTH_SHORT);
