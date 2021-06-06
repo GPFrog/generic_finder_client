@@ -45,8 +45,10 @@ public class EnterFragment extends Fragment {
 
         MedicineSearch = new MedicineSearch();
         SignupFragment = new SignupFragment();
+
         emailInput = view.findViewById(R.id.emailInput);
-        String url = "http://119.56.228.77:39283/";
+        pwInput = view.findViewById(R.id.pwInput);
+        String url = "http://152.70.89.118:4321/";
 
         //로그인
         loginBtn = view.findViewById(R.id.loginBtn);
@@ -62,10 +64,11 @@ public class EnterFragment extends Fragment {
                 SharedPreferences.Editor editor = sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
 
                 try {
-                    rtResult = requestTask.execute("", "id=" + emailInput.toString(), "&pw=" + pwInput.toString()).get();
+                    rtResult = requestTask.execute(url + "signin?id=" + emailInput.getText().toString() + "&password=" + pwInput.getText().toString()).get();
+                    System.out.println(rtResult);
                     JSONObject jsonObject = new JSONObject(rtResult);
 
-                    if(jsonObject.toString().contains("true")) {
+                    if(jsonObject.toString().contains("ok")) {
                         if(jsonObject.toString().contains("1")) {
                             //사용자
                             editor.putString("id", emailInput.getText().toString()); // key,value 형식으로 저장

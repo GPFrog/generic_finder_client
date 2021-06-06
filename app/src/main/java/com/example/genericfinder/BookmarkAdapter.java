@@ -68,7 +68,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
 
     class bookmarkViewHolder extends RecyclerView.ViewHolder {
         public TextView bookmarkName;
-        public ImageView bookmarkImg;
         public Button bm_infoBtn;
         BookmarkAdapter mAdapter;
 
@@ -76,7 +75,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
             super(itemView);
             
             bookmarkName = itemView.findViewById(R.id.bookmarkName);
-            bookmarkImg = itemView.findViewById(R.id.bookmarkImg);
             bm_infoBtn = itemView.findViewById(R.id.bm_infoBtn);
 
             //상세보기에서 약 이름 받아옴
@@ -93,7 +91,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
                 JSONObject jsonObject = new JSONObject(rtResult);
 
                 bookmarkName.setText(jsonObject.getString("medicineName"));
-                Glide.with(itemView).load(jsonObject.getString("medicineImage")).into(bookmarkImg);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -113,7 +110,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.bookma
         }
 
         void onBind(BookmarkData data) {
-            Glide.with(itemView).load(data.getBookmarkImg()).into(bookmarkImg);
             bookmarkName.setText(data.getBookmarkName());
         }
     }
