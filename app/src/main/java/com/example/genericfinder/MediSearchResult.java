@@ -32,7 +32,7 @@ public class MediSearchResult extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     RecyclerView mRecyclerView;
     SearchResultAdapter mAdapter;
-    ArrayList<SearchResultData> searchResultData = null;
+    ArrayList<SearchResultData> searchResultData;
 
     SearchResultData data;
     Button filterBtn;
@@ -132,65 +132,92 @@ public class MediSearchResult extends Fragment {
             }
         });
 
-//        initScrollListener(mRecyclerView, view);
+        initScrollListener(mRecyclerView, view);
 
         return view;
     }
 
     //무한 스크롤
-//    void dataMore() {
-//        Log.d(TAG, "dataMore: ");
-//        searchResultData.add(null);
-//        mAdapter.notifyItemInserted(searchResultData.size() - 1);
-//
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                searchResultData.remove(searchResultData.size() - 1);
-//                int scrollPosition = searchResultData.size();
-//                mAdapter.notifyItemRemoved(scrollPosition);
-//                int currentSize = scrollPosition;
-//
-//                String[] arrayMedi = null;
-//                for(String medicine : arrayMedi) {
-//                    searchResultData.add(new SearchResultData(medicine));
-//                }
-//
-//                mAdapter.notifyDataSetChanged();
-//                isLoading = false;
-//            }
-//        }, 2000);
-//    }
-//
-//    public void initScrollListener(RecyclerView recyclerView, View view) {
+    void dataMore() {
+        Log.d(TAG, "dataMore: ");
+        searchResultData.add(null);
+        mAdapter.notifyItemInserted(searchResultData.size() - 1);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                searchResultData.remove(searchResultData.size() - 1);
+                int scrollPosition = searchResultData.size();
+                mAdapter.notifyItemRemoved(scrollPosition);
+                int currentSize = scrollPosition;
+
+                String[] arrayMedi = null;
+                for(String medicine : arrayMedi) {
+                    searchResultData.add(new SearchResultData(medicine));
+                }
+
+                mAdapter.notifyDataSetChanged();
+                isLoading = false;
+            }
+        }, 2000);
+    }
+
+    public void initScrollListener(RecyclerView recyclerView, View view) {
 //        if(searchResultData.size() == 0) {
 //            isLoading = true;
 //            dataMore();
 //        }
-//
-//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
 //                Log.d(TAG, "onScrollStateChanged: ");
-//            }
-//
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
 //                Log.d(TAG, "onScrolled: ");
-//
-//                LinearLayoutManager linearLayoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
-//
-//                if(isLoading && (searchResultData.size() % 20) == 0 && searchResultData.size() != 0) {
-//                    if(linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == searchResultData.size() - 1) {
-//                        isLoading = true;
+
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
+
+                if(isLoading && (searchResultData.size() % 20) == 0 && searchResultData.size() != 0) {
+                    if(linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == searchResultData.size() - 1) {
+                        isLoading = true;
 //                        dataMore();
-//                        Toast.makeText(view.getContext(), "스크롤감지", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            }
-//        });
-//    }
+                        loadMore();
+                        Toast.makeText(view.getContext(), "스크롤감지", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+    }
+
+    private void loadMore() {
+        searchResultData.add(null);
+        mAdapter.notifyItemInserted(searchResultData.size() - 1);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                searchResultData.remove(searchResultData.size() - 1);
+                int scrollPosition = searchResultData.size();
+                mAdapter.notifyItemRemoved(scrollPosition);
+                int currentSize = scrollPosition;
+                int nextLimit = currentSize + 10;
+                SearchResultData sd = new SearchResultData();
+
+                while(currentSize - 1 < nextLimit) {
+                    searchResultData.add(sd);
+                    currentSize++;
+                }
+
+                mAdapter.notifyDataSetChanged();
+                isLoading = false;
+            }
+        }, 2000);
+    }
 }

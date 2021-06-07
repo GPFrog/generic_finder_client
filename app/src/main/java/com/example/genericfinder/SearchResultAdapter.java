@@ -86,7 +86,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 public void onClick(View view) {
                     //약 상세 조회로 (약 이름 정보 넘겨줌)
                     Bundle bundle = new Bundle();
-                    bundle.putString("result_name", result_name.toString());
+                    bundle.putString("result_name", result_name.getText().toString());
                     MedicineInfo medicineInfo = new MedicineInfo();
                     medicineInfo.setArguments(bundle); // 데이터 전달
                 }

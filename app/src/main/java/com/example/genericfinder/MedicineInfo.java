@@ -27,13 +27,15 @@ public class MedicineInfo extends Fragment {
     ImageView mediInfoImg;
     ToggleButton bookmarkBtn;
     Button priceEnrollBtn;
-    TextView mediName, mediCompany, mediIngedient, mediTake, mediCaution, avgPrice;
+    TextView mediName, mediCompany, mediShape, mediEffect, mediPeriod, mediPackaging, mediIngedient, mediTake, mediCaution, avgPrice;
     BookmarkFragment bookmarkFragment;
     MedicinePriceEnroll medicinePriceEnroll;
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerView mRecyclerView;
     InfoUserPriceAdapter mAdapter;
     ArrayList<InfoUserPriceData> ipData;
+    Bundle getBundle;
+    String name;
 
     public MedicineInfo() {
         // Required empty public constructor
@@ -42,6 +44,10 @@ public class MedicineInfo extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //SearchResult에서 약 이름 받아오기
+        getBundle = getArguments();
+        name = getBundle.getString("result_name");
     }
 
     @Override
@@ -57,6 +63,13 @@ public class MedicineInfo extends Fragment {
         avgPrice = view.findViewById(R.id.avgPrice);
         bookmarkFragment = new BookmarkFragment();
 
+        mediShape = view.findViewById(R.id.mediShape);
+        mediEffect = view.findViewById(R.id.mediEffect);
+        mediPeriod = view.findViewById(R.id.mediPeriod);
+        mediPackaging = view.findViewById(R.id.mediPackaging);
+
+        String url = "http://ip:4321/";
+
         Context context = view.getContext();
         mRecyclerView = view.findViewById(R.id.mediUserRecyclerv);
         mRecyclerView.setHasFixedSize(true);
@@ -67,9 +80,7 @@ public class MedicineInfo extends Fragment {
         mAdapter = new InfoUserPriceAdapter(ipData);
         mRecyclerView.setAdapter(mAdapter);
 
-        //SearchResult에서 약 이름 받아오기
-        Bundle getBundle = getArguments();
-        String medicineName = getBundle.getString("result_name");
+
 
         //약 이름으로 DB에서 약 정보 들고오기
         RequestTask requestTask = new RequestTask();
@@ -85,16 +96,21 @@ public class MedicineInfo extends Fragment {
 
         try {
             //검색 결과 -> 상세정보
-            rtResult = requestTask.execute("", "medicineName=" + medicineName).get();
-            JSONObject jsonObject = new JSONObject(rtResult);
+//            rtResult = requestTask.execute("", "medicineName=" + name).get();
+//            JSONObject jsonObject = new JSONObject(rtResult);
+            rtResult = requestTask.execute(url + "medicineDetailLookup?code=" + "195700020").get();
+            rtResult = rtResult.replaceAll("\"", "");
+            String[] arr = rtResult.split("/");
 
-            mediName.setText(jsonObject.getString("medicineName"));
-            mediCompany.setText(jsonObject.getString("medicineCompany"));
-            mediIngedient.setText(jsonObject.getString("medicineIngredient"));
-            mediTake.setText(jsonObject.getString("medicineTake"));
-            mediCaution.setText(jsonObject.getString("medicineCaution"));
-            avgPrice.setText(jsonObject.getString("avgPrice"));
-            Glide.with(view).load(jsonObject.getString("medicineImage")).into(mediInfoImg);
+            mediName.setText(arr[0]);
+            mediCompany.setText(arr[1]);
+            mediShape.setText(arr[2] + "장축: " + arr[3] + "단축: " + arr[4]);
+            mediIngedient.setText(arr[5]);
+            mediEffect.setText(arr[6]);
+            mediTake.setText("복용법");
+            mediCaution.setText("유의사항");
+            avgPrice.setText("지역 평균가");
+//            Glide.with(view).load(jsonObject.getString("medicineImage")).into(mediInfoImg);
 
             //즐겨찾기 -> 상세정보
             bmResult = requestTask.execute("", "medicineName=" + bookmarkName).get();
