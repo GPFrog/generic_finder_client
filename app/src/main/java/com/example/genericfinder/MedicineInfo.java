@@ -68,7 +68,7 @@ public class MedicineInfo extends Fragment {
         mediPeriod = view.findViewById(R.id.mediPeriod);
         mediPackaging = view.findViewById(R.id.mediPackaging);
 
-        String url = "http://ip:4321/";
+        String url = "http://localhost:4000/";
 
         Context context = view.getContext();
         mRecyclerView = view.findViewById(R.id.mediUserRecyclerv);
@@ -100,15 +100,17 @@ public class MedicineInfo extends Fragment {
 //            JSONObject jsonObject = new JSONObject(rtResult);
             rtResult = requestTask.execute(url + "medicineDetailLookup?code=" + "195700020").get();
             rtResult = rtResult.replaceAll("\"", "");
-            String[] arr = rtResult.split("/");
+            String[] arr = rtResult.split("^^");
 
             mediName.setText(arr[0]);
             mediCompany.setText(arr[1]);
             mediShape.setText(arr[2] + "장축: " + arr[3] + "단축: " + arr[4]);
             mediIngedient.setText(arr[5]);
             mediEffect.setText(arr[6]);
-            mediTake.setText("복용법");
-            mediCaution.setText("유의사항");
+            mediTake.setText(arr[7]);
+            mediCaution.setText(arr[8]);
+            mediPeriod.setText(arr[9]);
+            mediPackaging.setText(arr[10]);
             avgPrice.setText("지역 평균가");
 //            Glide.with(view).load(jsonObject.getString("medicineImage")).into(mediInfoImg);
 

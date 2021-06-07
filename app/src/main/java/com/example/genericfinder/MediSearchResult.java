@@ -128,10 +128,12 @@ public class MediSearchResult extends Fragment {
 
         try {
             System.out.println("1번");
+            requestTask.get();
 //            rtResult = requestTask.execute(url + "medicineLookup?name=" + searchName + "&activeingredient=" + searchIngredient
 //                    + "&company=" + searchCompany + "&symptom=" + searchEffect).get();
             // 이름 & 도 & 시
-            rtResult = requestTask.execute(url + "medicineLookup?name=" + searchName + "&sido=" + sido2 + "&sigungu=" + sigungu2).get();
+            rtResult = requestTask.execute(url + "medicineLookup?name=" + searchName + "&activeingredient=" + searchIngredient
+                    + "&company=" + searchCompany + "&symptom=" + searchEffect +"&sido=" + sido2 + "&sigungu=" + sigungu2).get();
             rtResult = rtResult.replaceAll("\\[", "");
             rtResult = rtResult.replaceAll("]", "");
             rtResult = rtResult.replaceAll("\"", "");
