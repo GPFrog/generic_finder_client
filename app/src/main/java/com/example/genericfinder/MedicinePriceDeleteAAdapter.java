@@ -23,7 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MedicinePriceDeleteAAdapter extends RecyclerView.Adapter<MedicinePriceDeleteAAdapter.MediPriceDeleteViewHolder> implements Filterable {
+public class MedicinePriceDeleteAAdapter extends RecyclerView.Adapter<MedicinePriceDeleteAAdapter.MediPriceDeleteViewHolder> {
     ArrayList<MedicinePriceData> mpData = new ArrayList<>();
     ArrayList<MedicinePriceData> filterlist;
     LayoutInflater mInflater;
@@ -48,13 +48,13 @@ public class MedicinePriceDeleteAAdapter extends RecyclerView.Adapter<MedicinePr
 
     @Override
     public void onBindViewHolder(@NonNull MedicinePriceDeleteAAdapter.MediPriceDeleteViewHolder holder, int position) {
-//        holder.onBind(mpData.get(position));
-//
-//        holder.enrollDate.setText(mpData.get(position).getEnrollDate());
-//        holder.pName.setText(mpData.get(position).getpName());
-//        holder.mName.setText(mpData.get(position).getmName());
-//        holder.mPrice.setText(mpData.get(position).getmPrice());
-//        holder.userEmail.setText(mpData.get(position).getUserEmail());
+        holder.onBind(mpData.get(position));
+
+        holder.enrollDate.setText(mpData.get(position).getEnrollDate());
+        holder.pName.setText(mpData.get(position).getpName());
+        holder.mName.setText(mpData.get(position).getmName());
+        holder.mPrice.setText(mpData.get(position).getmPrice());
+        holder.userEmail.setText(mpData.get(position).getUserEmail());
     }
 
     @Override
@@ -62,37 +62,37 @@ public class MedicinePriceDeleteAAdapter extends RecyclerView.Adapter<MedicinePr
 
     void addItem(MedicinePriceData data) {mpData.add(data);}
 
-    @Override
-    public Filter getFilter() {
-        return exampleFilter;
-    }
+//    @Override
+//    public Filter getFilter() {
+//        return exampleFilter;
+//    }
 
-    private Filter exampleFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<MedicinePriceData> filtering = new ArrayList<>();
-
-            if(constraint == null || constraint.length() == 0) filtering.addAll(mpData);
-            else {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-
-                for(MedicinePriceData item : mpData) {
-                    if(item.getmName().toLowerCase().contains(filterPattern)) filterlist.add(item);
-                }
-            }
-
-            FilterResults results = new FilterResults();
-            results.values = filterlist;
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            mpData.clear();
-            mpData.addAll((List)results.values);
-            notifyDataSetChanged();
-        }
-    };
+//    private Filter exampleFilter = new Filter() {
+//        @Override
+//        protected FilterResults performFiltering(CharSequence constraint) {
+//            List<MedicinePriceData> filtering = new ArrayList<>();
+//
+//            if(constraint == null || constraint.length() == 0) filtering.addAll(mpData);
+//            else {
+//                String filterPattern = constraint.toString().toLowerCase().trim();
+//
+//                for(MedicinePriceData item : mpData) {
+//                    if(item.getmName().toLowerCase().contains(filterPattern)) filterlist.add(item);
+//                }
+//            }
+//
+//            FilterResults results = new FilterResults();
+//            results.values = filterlist;
+//            return results;
+//        }
+//
+//        @Override
+//        protected void publishResults(CharSequence constraint, FilterResults results) {
+//            mpData.clear();
+//            mpData.addAll((List)results.values);
+//            notifyDataSetChanged();
+//        }
+//    };
 
     class MediPriceDeleteViewHolder extends RecyclerView.ViewHolder {
         TextView enrollDate, pName, mName, mPrice, userEmail;
@@ -159,12 +159,12 @@ public class MedicinePriceDeleteAAdapter extends RecyclerView.Adapter<MedicinePr
             this.mAdapter = adapter;
         }
 
-//        void onBind(MedicinePriceData data) {
-//            enrollDate.setText(data.getEnrollDate());
-//            pName.setText(data.getpName());
-//            mName.setText(data.getmName());
-//            mPrice.setText(data.getmPrice());
-//            userEmail.setText(data.getUserEmail());
-//        }
+        void onBind(MedicinePriceData data) {
+            enrollDate.setText(data.getEnrollDate());
+            pName.setText(data.getpName());
+            mName.setText(data.getmName());
+            mPrice.setText(data.getmPrice());
+            userEmail.setText(data.getUserEmail());
+        }
     }
 }

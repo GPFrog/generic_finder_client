@@ -1,5 +1,7 @@
 package com.example.genericfinder;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -40,6 +42,10 @@ public class PriceEnrollPopup extends DialogFragment {
         String medicineName = getBundle.getString("medicineName");
         String pharmacyNum= getBundle.getString("pharmacyNum");
         String price = getBundle.getString("price");
+        String url = "http://152.70.89.118:4321/";
+
+        SharedPreferences getSharedPref = getActivity().getSharedPreferences("id", Context.MODE_PRIVATE);
+        String email = getSharedPref.toString();
 
         enrollBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,10 +54,11 @@ public class PriceEnrollPopup extends DialogFragment {
                 String rtResult = null;
                 
                 try {
-                    rtResult = requestTask.execute("", "medicineName=" + medicineName + "&pharmacyNum=" + pharmacyNum + "&price=" + price).get();
-                    JSONObject jsonObject = new JSONObject(rtResult);
+                    rtResult = requestTask.execute(url + "medicinePriceEnroll?email=" + email + "&medicineName=" + medicineName + "&price=" + price + "&pharmacyNum=" + pharmacyNum).get();
+                    rtResult = rtResult.replaceAll("\"", "");
+                    String arr[] = rtResult.split("/");
 
-                    if(jsonObject.toString().contains("true")) Toast.makeText(view.getContext(), "의약품 가격이 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                    if(arr[0].compareTo("true") == 0) Toast.makeText(view.getContext(), "의약품 가격이 등록되었습니다.", Toast.LENGTH_SHORT).show();
                     else Toast.makeText(view.getContext(), "약 가격 등록에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -55,17 +55,19 @@ public class InfoUserPriceAdapter extends RecyclerView.Adapter<InfoUserPriceAdap
             //약 이름으로 사용자가 등록한 가격들 받아오기
             MedicineInfo medicineInfo = new MedicineInfo();
             String medicineName = medicineInfo.mediName.toString();
+            String url = "http://152.70.89.118:4321/";
 
             RequestTask requestTask = new RequestTask();
             String rtResult = null;
 
             try {
-                rtResult = requestTask.execute("", "medicineName=" + medicineName).get();
-                JSONObject jsonObject = new JSONObject(rtResult);
+                rtResult = requestTask.execute(url + "?medicineName=" + medicineName).get();
+                rtResult = rtResult.replace("\"", "");
+                String arr[] = rtResult.split("/");
 
-                pharmacyName.setText(jsonObject.getString("pharmacyName"));
-                usersPrice.setText(jsonObject.getString("usersPrice"));
-                userEmail.setText(jsonObject.getString("userEmail"));
+                pharmacyName.setText(arr[0]);
+                usersPrice.setText(arr[1]);
+                userEmail.setText(arr[2]);
             } catch (Exception e) {
                 e.printStackTrace();
             }

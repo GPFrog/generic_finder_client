@@ -4,15 +4,14 @@ public class SearchResultData {
     private String resultName;
     private String resultPrice;
 
+    public SearchResultData() {
+        resultName = "";
+        resultPrice = "";
+    }
 
     public SearchResultData(String resultName, String resultPrice) {
         this.resultName = resultName;
         this.resultPrice = resultPrice;
-    }
-
-    public SearchResultData() {
-        resultName = "";
-        resultPrice = "";
     }
 
     public SearchResultData(String medicine) {

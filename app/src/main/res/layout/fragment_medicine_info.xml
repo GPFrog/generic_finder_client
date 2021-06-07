@@ -367,7 +367,7 @@
 
                 <TextView
                     android:id="@+id/text19"
-                    android:text="성분"
+                    android:text="사용자 등록 약 가격"
                     android:textSize="17dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
