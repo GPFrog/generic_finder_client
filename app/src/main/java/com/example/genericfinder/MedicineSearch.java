@@ -56,7 +56,7 @@ public class MedicineSearch extends Fragment {
 //        effect = searchEffect.getText().toString();
 
         MediSearchResult = new MediSearchResult();
-        searchResultAdapter = new SearchResultAdapter();
+        searchResultAdapter = new SearchResultAdapter(searchResultData);
         FilterPopup = new FilterPopup();
         searchResultData = new ArrayList<>();
         data = new SearchResultData();
