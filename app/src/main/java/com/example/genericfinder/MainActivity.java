@@ -18,6 +18,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.genericfinder.httpConnector.RequestTask;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
             MedicineSearchResult, SignUpFragment, PharmacyInfo, MedicinePriceDeleteU,
             MedicinePriceDeleteA, MedicinePriceEnroll;
     NavigationView nav_view;
+
+    TextView nav_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +70,17 @@ public class MainActivity extends AppCompatActivity {
         MedicinePriceDeleteA = new MedicinePriceDeleteA();
 
         nav_view = findViewById(R.id.nav_view);
+
+        nav_email = findViewById(R.id.nav_email);
+
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                String id = sharedPreferences.getString("id", "");
-                String authority = sharedPreferences.getString("authority", "");
+                //값 가져오는 코드
+                SharedPreferences sharedPreferences = getSharedPreferences("email", Context.MODE_PRIVATE);
+                String id = sharedPreferences.getString("LogOnEmail","");
+                String authority = sharedPreferences.getString("authority","");
 
                 switch (item.getItemId()) {
                     case R.id.menu_genericSearch:
@@ -89,19 +95,40 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "즐겨찾기", Toast.LENGTH_SHORT).show();
                         replaceFragment(BookmarkFragment);
                         break;
-                    case R.id.menu_priceEnroll:
-                        //회원 -> 가능
-                        if(authority.compareTo("1") == 0) replaceFragment(MedicinePriceEnroll);
-                        else Toast.makeText(getApplicationContext(), "약 가격 등록이 불가능합니다.", Toast.LENGTH_SHORT).show();
-                        break;
                     case R.id.menu_priceDelete:
                         Toast.makeText(getApplicationContext(), "약 가격 삭제", Toast.LENGTH_SHORT).show();
-                        //회원이면 회원 페이지
-                        if(authority.compareTo("1") == 0) replaceFragment(MedicinePriceDeleteU);
-                        //관리자면 관리자 페이지
-                        else if(authority.compareTo("2") == 0) replaceFragment(MedicinePriceDeleteA);
-                        //비회원이면 안된다는 메시지
-                        else Toast.makeText(getApplicationContext(), "로그인이 필요한 메뉴입니다.", Toast.LENGTH_SHORT).show();
+                        //비회원이면 안된다는 메시지, 로그인 화면으로 전환
+//                        if(nav_email.getText().toString().compareTo("")==0) {
+//                            Toast.makeText(getApplicationContext(), "로그인이 필요한 메뉴입니다.", Toast.LENGTH_SHORT).show();
+//                            replaceFragment(EnterFragment);
+//                        }
+//
+//                        //관리자면 관리자 페이지
+//                        else if(nav_email.getText().toString().compareTo("관리자")==0) {
+//                            replaceFragment(MedicinePriceDeleteA);
+//                        }
+//
+//                        //회원이면 회원 페이지
+//                        else {
+//                            replaceFragment(MedicinePriceDeleteU);
+//                        }
+
+
+
+//                        if(authority.compareTo("1") == 0) {
+//                            replaceFragment(MedicinePriceDeleteU);
+//                        }
+//
+//                        //관리자면 관리자 페이지
+//                        else if(authority.compareTo("2") == 0) {
+//                            replaceFragment(MedicinePriceDeleteA);
+//                        }
+//
+//                        //비회원이면 안된다는 메시지, 로그인 화면으로 전환
+//                        else {
+//                            Toast.makeText(getApplicationContext(), "로그인이 필요한 메뉴입니다.", Toast.LENGTH_SHORT).show();
+//                            replaceFragment(EnterFragment);
+//                        }
                         break;
                     case R.id.menu_withdraw:
                         AlertDialog.Builder dlg = new AlertDialog.Builder(MainActivity.this);
@@ -115,14 +142,21 @@ public class MainActivity extends AppCompatActivity {
                                 String url = "http://152.70.89.118:4321/";
 
                                 try {
-                                    rtResult = requestTask.execute(url + "withdraw?id=" + id).get();
+                                    rtResult = requestTask.execute(url + "withdraw?id=" + nav_email.getText().toString()).get();
                                     rtResult = rtResult.replaceAll("\"", "");
                                     String arr[] = rtResult.split("/");
                                     
-                                    if(arr[0].compareTo("true") == 0) Toast.makeText(getApplicationContext(), "회원탈퇴되었습니다.", Toast.LENGTH_SHORT).show();
-                                    else Toast.makeText(getApplicationContext(), "회원탈퇴에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                    if (arr[0].compareTo("true") == 0) {
+                                        Toast.makeText(getApplicationContext(), "회원탈퇴되었습니다.", Toast.LENGTH_SHORT).show();
+                                        replaceFragment(EnterFragment);
+                                    }
+                                    else {
+                                        Toast.makeText(getApplicationContext(), "회원탈퇴에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                    }
                                 } catch (Exception e) {
                                     e.printStackTrace();
+                                    Toast.makeText(getApplicationContext(), "회원탈퇴에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                    replaceFragment(EnterFragment);
                                 }
                             }
                         });
@@ -157,18 +191,4 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.container, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택
     }
 
-    //뒤로가기
-//    public interface onKeyBackPressedListener { void onBackKey(); }
-//
-//    private onKeyBackPressedListener mOnKeyBackPressedListener;
-//
-//    public void setOnKeyBackPressedListener(onKeyBackPressedListener listener) {
-//        mOnKeyBackPressedListener = listener;
-//    }
-//
-//    @Override
-//    public void onBackPressed() {
-//        if(mOnKeyBackPressedListener != null) mOnKeyBackPressedListener.onBackKey();
-//        else super.onBackPressed();
-//    }
 }

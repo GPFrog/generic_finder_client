@@ -54,7 +54,7 @@ public class MediSearchResult extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     RecyclerView mRecyclerView;
     SearchResultAdapter mAdapter;
-    ArrayList<SearchResultData> searchResultData;
+    ArrayList<SearchResultData> searchResultData = null;
 
     SearchResultData data;
     Button filterBtn;
@@ -83,8 +83,6 @@ public class MediSearchResult extends Fragment {
         View view = inflater.inflate(R.layout.fragment_medi_search_result, container, false);
 
         Context context = view.getContext();
-        data = new SearchResultData();
-
         mRecyclerView = view.findViewById(R.id.resultRecyclev);
         mRecyclerView.setHasFixedSize(true);
 
@@ -104,12 +102,12 @@ public class MediSearchResult extends Fragment {
         double latitude = gpsTracker.getLatitude();
         double longitude = gpsTracker.getLongitude();
 
-        String address = getCurrentAddress(latitude, longitude);
+//        String address = getCurrentAddress(latitude, longitude);
 //        String[] tmp = address.split(" ");
-
+//
 //        String sido; //경상북도
 //        String sigungu; //구미시
-
+//
 //        sido = tmp[1];
 //        sigungu = tmp[2];
 
@@ -118,7 +116,7 @@ public class MediSearchResult extends Fragment {
         sido2 ="경상북도";
         sigungu2 = "구미시";
 
-//        System.out.println("\n 시도 : "+sido+"\n 시군구 : "+sigungu);
+        //System.out.println("\n 시도 : "+sido+"\n 시군구 : "+sigungu);
         //#####현재 위치 정보 끝########
 
 
@@ -128,24 +126,28 @@ public class MediSearchResult extends Fragment {
 
         try {
             System.out.println("1번");
-//            rtResult = requestTask.execute(url + "medicineLookup?name=" + searchName + "&activeingredient=" + searchIngredient
-//                    + "&company=" + searchCompany + "&symptom=" + searchEffect).get();
+            rtResult = requestTask.execute(url + "medicineLookup?name=" + searchName + "&activeingredient=" + searchIngredient
+                    + "&company=" + searchCompany + "&symptom=" + searchEffect + "&si_do=" + sido2 + "&si_gun_gu=" + sigungu2).get();
             // 이름 & 도 & 시
-            rtResult = requestTask.execute(url + "medicineLookup?name=" + searchName + "&sido=" + sido2 + "&sigungu=" + sigungu2).get();
+//            rtResult = requestTask.execute(url + "medicineLookup?name=" + searchName + "&activesido=" + sido2 + "&sigungu=" + sigungu2).get();
             rtResult = rtResult.replaceAll("\\[", "");
             rtResult = rtResult.replaceAll("]", "");
             rtResult = rtResult.replaceAll("\"", "");
             String[] arr = rtResult.split(",");
             String medicineCode[] = new String[arr.length / 3];
             int cnt = 0;
-            mAdapter = new SearchResultAdapter(searchResultData); //view.getContext(), searchResultData
+            System.out.println("2번");
+            mAdapter = new SearchResultAdapter(view.getContext(), searchResultData);
             mRecyclerView.setAdapter(mAdapter);
-
+            System.out.println("3번");
+            data = new SearchResultData();
             for (int i = 0; i < arr.length; i++) {
+                System.out.println("넣을 값 : " + arr[i]);
                 if ((i % 3) == 0) {
-//                    medicineCode[cnt] = arr[i];
-//                    cnt++;
+                    medicineCode[cnt] = arr[i];
+                    cnt++;
                 } else if ((i % 3) == 1) {
+                    System.out.println("이름 들어가는거 : " + arr[i]);
                     data.setResultName(arr[i]);
                 } else if ((i % 3) == 2) {
                     data.setResultPrice(arr[i]);
@@ -177,7 +179,7 @@ public class MediSearchResult extends Fragment {
             }
         });
 
-        initScrollListener(mRecyclerView, view);
+//        initScrollListener(mRecyclerView, view);
 
         return view;
     }
@@ -372,57 +374,35 @@ public class MediSearchResult extends Fragment {
 //            }
 //        }, 2000);
 //    }
-
-    public void initScrollListener(RecyclerView recyclerView, View view) {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
+//
+//    public void initScrollListener(RecyclerView recyclerView, View view) {
+//        if(searchResultData.size() == 0) {
+//            isLoading = true;
+//            dataMore();
+//        }
+//
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
 //                Log.d(TAG, "onScrollStateChanged: ");
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+//            }
+//
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
 //                Log.d(TAG, "onScrolled: ");
-
-                LinearLayoutManager linearLayoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
-
-                if(isLoading) {
-                    if(linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == searchResultData.size() - 1) {
-                        isLoading = true;
+//
+//                LinearLayoutManager linearLayoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
+//
+//                if(isLoading && (searchResultData.size() % 20) == 0 && searchResultData.size() != 0) {
+//                    if(linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == searchResultData.size() - 1) {
+//                        isLoading = true;
 //                        dataMore();
-                        loadMore();
-                        Toast.makeText(view.getContext(), "스크롤감지", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
-    }
-
-    private void loadMore() {
-        mAdapter.srData.add(null);
-        mAdapter.notifyItemInserted(mAdapter.srData.size() - 1);
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mAdapter.srData.remove(mAdapter.srData.size() - 1);
-                int scrollPosition = mAdapter.srData.size();
-                mAdapter.notifyItemRemoved(scrollPosition);
-                int currentSize = scrollPosition;
-                int nextLimit = currentSize + 10;
-//                mAdapter.srData sd = new mAdapter.srData();
-
-                while(currentSize - 1 < nextLimit) {
-                    mAdapter.srData.add(data);
-                    currentSize++;
-                }
-
-                mAdapter.notifyDataSetChanged();
-                isLoading = false;
-            }
-        }, 2000);
-    }
+//                        Toast.makeText(view.getContext(), "스크롤감지", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//        });
+//    }
 }
