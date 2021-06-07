@@ -26,10 +26,6 @@ public class FilterPopup extends DialogFragment {
     MediSearchResult mediSearchResult;
     FilterResult filterResult;
     CompanyCheckAdapter companyAdapter;
-    //SymptomCheckAdapter symptomAdapter;
-
-    //테스트
-    Fragment currentPosition;
 
     public FilterPopup() {
         // Required empty public constructor
@@ -46,11 +42,6 @@ public class FilterPopup extends DialogFragment {
 
         Bundle getBundle = getArguments();
         fragment = getActivity().getSupportFragmentManager().findFragmentByTag("FilterPopup");
-
-//        if(fragment != null) {
-//            DialogFragment dialogFragment = (DialogFragment) fragment;
-//            dialogFragment.dismiss();
-//        }
 
         //가격 seekbar
         priceText = view.findViewById(R.id.priceText);
@@ -79,13 +70,8 @@ public class FilterPopup extends DialogFragment {
         mediSearchResult = new MediSearchResult();
         filterResult = new FilterResult();
         companyAdapter = new CompanyCheckAdapter();
-        //symptomAdapter = new SymptomCheckAdapter();
-
-        //테스트
-        currentPosition = new CurrentPosition();
 
         String[] companyChecked = companyAdapter.getCheckedCompany();
-        //String[] symptomChecked = symptomAdapter.getCheckedSymptom();
 
         filterCheckBtn = view.findViewById(R.id.filterCheckBtn);
         filterCheckBtn.setOnClickListener(new View.OnClickListener() {
@@ -93,20 +79,17 @@ public class FilterPopup extends DialogFragment {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putStringArray("companyChecked", companyChecked);
-//                bundle.putStringArray("symptomChecked", symptomChecked);
+
                 filterResult.setArguments(bundle);
 
-                //테스트
-                Toast.makeText(getContext(), symtomText.getText()+" , "+priceText.getText()+" / 입력 확인이요", Toast.LENGTH_SHORT).show();
+//                //테스트
+//                Toast.makeText(getContext(), symtomText.getText()+" , "+priceText.getText()+" / 입력 확인이요", Toast.LENGTH_SHORT).show();
 
-//                //기존 코드
-//                //필터링한 검색 결과로 넘어감, MedicineSearchResult 를 갱신하는게 어떨지..?
-//                ((MainActivity)getActivity()).replaceFragment(filterResult);
-
+                //기존 코드
+                //필터링한 검색 결과로 넘어감, MedicineSearchResult 를 갱신하는게 어떨지..?
+                ((MainActivity)getActivity()).replaceFragment(filterResult);
 //                ((MainActivity)getActivity()).replaceFragment(mediSearchResult); //의약품 검색결과로 넘어감
 
-                //테스트
-                ((MainActivity)getActivity()).replaceFragment(currentPosition); //현재 위치 조회로 넘어감
             }
         });
 
