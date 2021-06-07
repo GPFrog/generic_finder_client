@@ -13,18 +13,13 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/menu_priceEnroll"
-        android:title="약 가격 등록"
+        android:id="@+id/menu_bookmark"
+        android:title="즐겨찾기"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_priceDelete"
         android:title="약 가격 삭제"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/menu_bookmark"
-        android:title="즐겨찾기"
         app:showAsAction="never" />
 
     <item

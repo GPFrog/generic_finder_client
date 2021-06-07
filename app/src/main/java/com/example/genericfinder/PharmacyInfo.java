@@ -132,11 +132,10 @@ public class PharmacyInfo extends Fragment implements OnMapReadyCallback {
         CameraUpdate cameraUpdate = CameraUpdate.scrollTo(initialPosition).animate(CameraAnimation.Easing);
         naverMap.moveCamera(cameraUpdate);
 
-        //마커 위치 설정
+        //마커 위치 배열
         markersPosition = new Vector<LatLng>();
-        markersPosition.add(new LatLng(36.145938, 128.392727)); //학교 디지털관, 후에 삭제
 
-        //약국목록 끝
+        //약국목록
         markersPosition.add(new LatLng(36.16105024213588, 128.34422689693605)); //호수약국
         markersPosition.add(new LatLng(36.152894476552234, 128.33295965433857)); //혜민약국
         markersPosition.add(new LatLng(36.152177539932666, 128.32994985873313)); //원호우리약국
@@ -150,7 +149,7 @@ public class PharmacyInfo extends Fragment implements OnMapReadyCallback {
         markersPosition.add(new LatLng(36.139958775962064, 128.32331481424248)); //김온누리약국
         markersPosition.add(new LatLng(36.13973389875562, 128.32334419977303)); //하늘약국
 
-        //약국목록(1) 끝
+        //약국목록 (1)
         markersPosition.add(new LatLng(36.13825564294535, 128.41981487346447)); //조은약국
         markersPosition.add(new LatLng(36.13807111212124, 128.42151016411475)); //옥계미소약국
         markersPosition.add(new LatLng(36.14692669221037, 128.41632805904925)); //인제약국
@@ -169,7 +168,7 @@ public class PharmacyInfo extends Fragment implements OnMapReadyCallback {
         markersPosition.add(new LatLng(36.15591225461234, 128.43254801741656)); //민약국
         markersPosition.add(new LatLng(36.128871890496335, 128.4162862492484)); //수복약국
 
-        //약국목록 (2) 끝
+        //약국목록 (2)
         markersPosition.add(new LatLng(36.095179, 128.423484)); //사랑약국
         markersPosition.add(new LatLng(36.095398093806025, 128.42389934469813)); //문전약국
         markersPosition.add(new LatLng(36.095398093806025, 128.42389934469813)); //새보령약국
@@ -321,7 +320,6 @@ public class PharmacyInfo extends Fragment implements OnMapReadyCallback {
             }
             else {
                 mInfoWindow.close();
-                //Toast.makeText(getContext(),"마커 삭제",Toast.LENGTH_SHORT).show();
                 overlay.setMap(null); //마커 삭제
             }
             return true;
@@ -357,21 +355,6 @@ public class PharmacyInfo extends Fragment implements OnMapReadyCallback {
         //지도 클릭 이벤트
         naverMap.setOnMapClickListener((point,coord)->{
             mInfoWindow.close(); //인포윈도우 지우기
-
-            //마우스 클릭 지점에 마커 표시 - 임시, 실제로는 지울 것
-            Marker m = new Marker(new LatLng(coord.latitude,coord.longitude));
-            m.setIcon(MarkerIcons.BLACK);
-            m.setWidth(Marker.SIZE_AUTO);
-            m.setHeight(Marker.SIZE_AUTO);
-            m.setCaptionText("요기!");
-            m.setCaptionColor(Color.rgb(16,5,114));
-            m.setCaptionHaloColor(Color.rgb(223,220,254));
-            m.setSubCaptionText("잘되네욤");
-            m.setSubCaptionColor(Color.rgb(16,5,125));
-            m.setSubCaptionHaloColor(Color.WHITE);
-            m.setMap(naverMap);
-            m.setOnClickListener(listener);
-            activeMarkers.add(m);
         });
 
         //지도 롱 클릭

@@ -102,21 +102,21 @@ public class MediSearchResult extends Fragment {
         double latitude = gpsTracker.getLatitude();
         double longitude = gpsTracker.getLongitude();
 
-        String address = getCurrentAddress(latitude, longitude);
-        String[] tmp = address.split(" ");
-
-        String sido; //경상북도
-        String sigungu; //구미시
-
-        sido = tmp[1];
-        sigungu = tmp[2];
+//        String address = getCurrentAddress(latitude, longitude);
+//        String[] tmp = address.split(" ");
+//
+//        String sido; //경상북도
+//        String sigungu; //구미시
+//
+//        sido = tmp[1];
+//        sigungu = tmp[2];
 
         //테스트
         String sido2,sigungu2;
         sido2 ="경상북도";
         sigungu2 = "구미시";
 
-        System.out.println("\n 시도 : "+sido+"\n 시군구 : "+sigungu);
+        //System.out.println("\n 시도 : "+sido+"\n 시군구 : "+sigungu);
         //#####현재 위치 정보 끝########
 
 
@@ -126,10 +126,10 @@ public class MediSearchResult extends Fragment {
 
         try {
             System.out.println("1번");
-//            rtResult = requestTask.execute(url + "medicineLookup?name=" + searchName + "&activeingredient=" + searchIngredient
-//                    + "&company=" + searchCompany + "&symptom=" + searchEffect).get();
+            rtResult = requestTask.execute(url + "medicineLookup?name=" + searchName + "&activeingredient=" + searchIngredient
+                    + "&company=" + searchCompany + "&symptom=" + searchEffect + "&si_do=" + sido2 + "&si_gun_gu=" + sigungu2).get();
             // 이름 & 도 & 시
-            rtResult = requestTask.execute(url + "medicineLookup?name=" + searchName + "&sido=" + sido2 + "&sigungu=" + sigungu2).get();
+//            rtResult = requestTask.execute(url + "medicineLookup?name=" + searchName + "&activesido=" + sido2 + "&sigungu=" + sigungu2).get();
             rtResult = rtResult.replaceAll("\\[", "");
             rtResult = rtResult.replaceAll("]", "");
             rtResult = rtResult.replaceAll("\"", "");
