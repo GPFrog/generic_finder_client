@@ -61,13 +61,15 @@ public class BlackListEnrollPopup extends DialogFragment {
             public void onClick(View v) {
                 RequestTask requestTask = new RequestTask();
                 String rtResult = null;
+                String url = "http://152.70.89.118:4321/";
 
                 try {
                     //이메일로 블랙리스트 등록
-                    rtResult = requestTask.execute("", "userEmail=" + value).get();
-                    JSONObject jsonObject = new JSONObject(rtResult);
+                    rtResult = requestTask.execute(url + "blacklist?userEmail=" + value).get();
+                    rtResult = rtResult.replaceAll("\"", "");
+                    String arr[] = rtResult.split("/");
 
-                    if(jsonObject.toString().contains("true")) Toast.makeText(view.getContext(), "블랙리스트로 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                    if(arr[0].compareTo("true") == 0) Toast.makeText(view.getContext(), "블랙리스트로 등록되었습니다.", Toast.LENGTH_SHORT).show();
                     else Toast.makeText(view.getContext(), "블랙리스트 등록에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();

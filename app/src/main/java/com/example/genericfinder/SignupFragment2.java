@@ -58,9 +58,6 @@ public class SignupFragment2 extends Fragment {
             @Override
             public void onClick(View view) {
 
-
-
-
                 //인증 화면으로 다시 가게.
                 Toast.makeText(view.getContext(),"이전 화면으로 돌아갑니다.",Toast.LENGTH_SHORT).show();
                 ((MainActivity)getActivity()).replaceFragment(signupFragment);

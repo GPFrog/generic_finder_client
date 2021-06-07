@@ -25,10 +25,24 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     ArrayList<SearchResultData> srData = new ArrayList<>();
     LayoutInflater mInflater;
     Context mContext;
+    String searchName, searchIngredient, searchCompany, searchEffect;
+
+    public SearchResultAdapter() {}
 
     public SearchResultAdapter(Context context) {mInflater = LayoutInflater.from(context);}
 
-    public SearchResultAdapter(ArrayList<SearchResultData> srData) {this.srData = srData;}
+    public SearchResultAdapter( ArrayList<SearchResultData> srData) {
+        this.srData = srData;
+    }
+    public SearchResultAdapter(Context context, ArrayList<SearchResultData> srData) {
+        mInflater = LayoutInflater.from(context);
+        this.srData = srData;
+    }
+
+//    public SearchResultAdapter(Context context, ArrayList<SearchResultData> searchResultData) {
+//        this.mContext = context;
+//        this.srData = searchResultData;
+//    }
 
     @NonNull
     @Override
@@ -39,74 +53,32 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
     @Override
     public void onBindViewHolder(@NonNull SearchResultAdapter.searchResultViewHolder holder, int position) {
-//        holder.onBind(srData.get(position));
+        holder.onBind(srData.get(position));
 
-//        holder.result_name.setText(srData.get(position).getResultName());
-//        holder.result_price.setText(srData.get(position).getResultPrice());
+        holder.result_name.setText(srData.get(position).getResultName());
+        holder.result_price.setText(srData.get(position).getResultPrice());
 //        holder.result_img.setImageResource(Glide.with().load(srData.get(position).getResultImg()));
     }
 
     @Override
-    public int getItemCount() {return null != srData ? srData.size() : 0;}
+    public int getItemCount() {return srData.size();}
 
-    void addItem(SearchResultData data) {srData.add(data);}
+    void addItem(SearchResultData data) {
+        System.out.println("데이터 이름 : " + data.getResultName());
+        srData.add(data);
+    }
 
     class searchResultViewHolder extends RecyclerView.ViewHolder {
         public TextView result_name, result_price;
         public Button result_info;
         SearchResultAdapter mAdapter;
 
-        public searchResultViewHolder(final View itemView, SearchResultAdapter adapter) {
+        public searchResultViewHolder(View itemView, SearchResultAdapter adapter) {
             super(itemView);
 
             result_name = itemView.findViewById(R.id.result_name);
             result_price = itemView.findViewById(R.id.result_price);
             result_info = itemView.findViewById(R.id.result_info);
-
-            MedicineSearch medicineSearch = new MedicineSearch();
-            Bundle getBundle = medicineSearch.getArguments();
-            String searchName = getBundle.getString("serchName");
-            String searchIngredient = getBundle.getString("searchIngredient");
-            String searchCompany = getBundle.getString("searchCompany");
-            String searchEffect = getBundle.getString("searchEffect");
-
-            //검색 정보로 DB에서 정보 불러와서 SearchResult에 띄움
-            RequestTask requestTask = new RequestTask();
-            String rtResult = null;
-            String tmp = "";
-
-            if(searchName == "" && searchIngredient == "" && searchCompany == "" && searchEffect == "") {
-                Toast.makeText(itemView.getContext(), "하나 이상의 값을 입력하세요.", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                try {
-                    if(searchName != "") tmp += ("medicineName=" + searchName);
-                    if(searchIngredient != "") {
-                        if(tmp == "") tmp += ("medicineIngredient=" + searchIngredient);
-                        else tmp += ("&medicineIngredient=" + searchIngredient);
-                    }
-                    if(searchCompany != "") {
-                        if(tmp == "") tmp += ("company=" + searchCompany);
-                        else tmp += ("&company=" + searchCompany);
-                    }
-                    if (searchEffect != "") {
-                        if(tmp == "") tmp += ("effect=" + searchEffect);
-                        else tmp += ("&effect=" + searchEffect);
-                    }
-
-                    rtResult = requestTask.execute("", tmp).get();
-
-                    JSONObject jsonObject = new JSONObject(rtResult);
-                    JSONArray jsonArray = jsonObject.getJSONArray("medicineArray");
-                    for(int i=0 ; i<jsonArray.length() ; i++) {
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        result_name.setText(object.getString("medicineName"));
-                        result_price.setText(object.getString("medicinePrice"));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
 
             //부가정보 버튼
             result_info.setOnClickListener(new View.OnClickListener() {
@@ -123,10 +95,10 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             this.mAdapter = adapter;
         }
 
-//        void onBind(SearchResultData data) {
-//            result_name.setText(data.getResultName());
-//            result_price.setText(data.getResultPrice());
+        void onBind(SearchResultData data) {
+            result_name.setText(data.getResultName());
+            result_price.setText(data.getResultPrice());
 //            Glide.with(itemView).load(data.getResultImg()).into(result_img);
-//        }
+        }
     }
 }
