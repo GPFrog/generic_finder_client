@@ -67,16 +67,7 @@ public class EnterFragment extends Fragment {
 //        String img = img1 + img2;
 //        byte[] decodedString = Base64.decode(img1 + img2, Base64.DEFAULT);
 //        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, img1.length() + img2.length());
-
-//        Bitmap bmp = null;
-//        try {
-//            URL imgurl = new URL(img);
-//            bmp = BitmapFactory.decodeStream(imgurl.openConnection().getInputStream());
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+//
 //        imageView.setImageBitmap(decodedByte);
 
         //로그인

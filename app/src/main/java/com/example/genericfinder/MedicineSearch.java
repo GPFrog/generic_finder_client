@@ -73,6 +73,7 @@ public class MedicineSearch extends Fragment {
                     bundle.putString("searchIngredient", searchIngredient.getText().toString());
                     bundle.putString("searchCompany", searchCompany.getText().toString());
                     bundle.putString("searchEffect", searchEffect.getText().toString());
+
                     RequestTask requestTask = new RequestTask();
                     String rtResult = null;
                     String url = "http://152.70.89.118:4321/";
