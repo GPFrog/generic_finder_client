@@ -97,10 +97,10 @@ public class FilterResultAdapter extends RecyclerView.Adapter<FilterResultAdapte
                 @Override
                 public void onClick(View v) {
                     //약 상세 조회로
-                    Bundle bundle = new Bundle();
-                    bundle.putString("fr_name", fr_name.toString());
-                    MedicineInfo medicineInfo = new MedicineInfo();
-                    medicineInfo.setArguments(bundle);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("fr_name", fr_name.toString());
+//                    MedicineInfo medicineInfo = new MedicineInfo();
+//                    medicineInfo.setArguments(bundle);
                 }
             });
 

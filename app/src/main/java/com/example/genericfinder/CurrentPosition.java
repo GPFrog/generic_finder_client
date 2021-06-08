@@ -65,7 +65,6 @@ public class CurrentPosition extends Fragment {
         View view = inflater.inflate(R.layout.fragment_current_position, container, false);
 
         //테스트
-        medicinePriceEnroll = new MedicinePriceEnroll(); //의약품 가격 등록
         enterFragment = new EnterFragment();
 
         currentPText = view.findViewById(R.id.currentPText);

@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         MedicineSearch = new MedicineSearch();
         PharmacyInfo = new PharmacyInfo();
         BookmarkFragment = new BookmarkFragment();
-        MedicinePriceEnroll = new MedicinePriceEnroll();
         MedicinePriceDeleteU = new MedicinePriceDeleteU();
         MedicinePriceDeleteA = new MedicinePriceDeleteA();
 
@@ -76,7 +75,10 @@ public class MainActivity extends AppCompatActivity {
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+//                SharedPreferences sh = getSharedPreferences("bookmark", Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sh.edit();
+//                editor.putString("bookmark", "");
+//                editor.commit();
                 //값 가져오는 코드
                 SharedPreferences sharedPreferences = getSharedPreferences("email", Context.MODE_PRIVATE);
                 String id = sharedPreferences.getString("LogOnEmail","");
@@ -186,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void replaceFragment(Fragment fragment) {
+        System.out.println(fragment.getContext());
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택

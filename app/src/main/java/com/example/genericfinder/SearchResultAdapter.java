@@ -1,6 +1,7 @@
 package com.example.genericfinder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
@@ -28,6 +33,9 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     LayoutInflater mInflater;
     Context mContext;
     String searchName, searchIngredient, searchCompany, searchEffect;
+    MainActivity mainActivity;
+
+    public SearchResultAdapter(Context context) {mInflater = LayoutInflater.from(context);}
 
     public SearchResultAdapter(ArrayList<SearchResultData> items) {
         srData = items;
@@ -44,6 +52,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_loading, parent, false);
             return new LoadingViewHolder(view);
         }
+
     }
 
     @Override
@@ -93,7 +102,6 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public Button result_info;
         SearchResultAdapter mAdapter;
 
-
         public searchResultViewHolder(@NonNull View itemView) { // , SearchResultAdapter adapter
             super(itemView);
 
@@ -101,15 +109,30 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             result_price = itemView.findViewById(R.id.result_price);
             result_info = itemView.findViewById(R.id.result_info);
 
-            //부가정보 버튼
+//            medicineInfo = new MedicineInfo();
+            mainActivity = new MainActivity();
+
+            //상세정보 버튼
             result_info.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     //약 상세 조회로 (약 이름 정보 넘겨줌)
-                    Bundle bundle = new Bundle();
-                    bundle.putString("result_name", result_name.getText().toString());
-                    MedicineInfo medicineInfo = new MedicineInfo();
-                    medicineInfo.setArguments(bundle); // 데이터 전달
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("result_name", result_name.getText().toString());
+//                    medicineInfo.setArguments(bundle); // 데이터 전달
+
+                    Intent intent = new Intent(itemView.getContext(), MedicineInfoActivity.class);
+                    intent.putExtra("result_name", result_name.getText().toString());
+                    view.getContext().startActivity(intent);
+
+
+//                    mainActivity.replaceFragment(medicineInfo);
+//                    MediSearchResult ms = new MediSearchResult();
+//                    ms.replaceFragment(medicineInfo);
+//                    FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
+//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                    fragmentTransaction.replace(R.id.container, medicineInfo).commit();
                 }
             });
 
