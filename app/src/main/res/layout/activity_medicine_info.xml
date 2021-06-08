@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MedicineInfo">
+    tools:context=".MedicineInfoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
+            android:id="@+id/mediInfo_scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity ="center"
-            android:fillViewport="true"
             android:layout_marginTop="0dp"
-            android:id="@+id/mediInfo_scroll">
+            android:fillViewport="true"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:id="@+id/layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/mediInfoImg"
@@ -40,51 +44,51 @@
                     android:id="@+id/bookmarkBtn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textOn=""
-                    android:textOff=""
                     android:layout_marginLeft="350dp"
-                    android:background="@drawable/icon_star" />
+                    android:background="@drawable/icon_star"
+                    android:textOff=""
+                    android:textOn="" />
 
                 <TextView
                     android:id="@+id/mediName"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:text="의약품 명" />
+                    android:text="의약품 명"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/mediCompany"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:text="제약회사" />
+                    android:text="제약회사"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/priceEnrollBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:text="약 가격 등록"
-                    android:textColor="#FFFFFF"
                     android:layout_gravity="end"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/btn_background" />
+                    android:background="@drawable/btn_background"
+                    android:text="약 가격 등록"
+                    android:textColor="#FFFFFF" />
 
                 <View
                     android:layout_width="400dp"
                     android:layout_height="2dp"
+                    android:layout_marginLeft="6dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="6dp"
                     android:background="#152451"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -95,15 +99,15 @@
 
                 <TextView
                     android:id="@+id/text"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:text="의약품 모양 / 장축, 단축 길이" />
+                    android:text="의약품 모양 / 장축, 단축 길이"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/mediShape"
@@ -116,9 +120,9 @@
                 <View
                     android:layout_width="400dp"
                     android:layout_height="2dp"
+                    android:layout_marginLeft="6dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="6dp"
                     android:background="#152451"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -129,15 +133,15 @@
 
                 <TextView
                     android:id="@+id/text1"
-                    android:text="성분"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:text="성분"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/mediIngedient"
@@ -150,9 +154,9 @@
                 <View
                     android:layout_width="400dp"
                     android:layout_height="2dp"
+                    android:layout_marginLeft="6dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="6dp"
                     android:background="#152451"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -163,15 +167,15 @@
 
                 <TextView
                     android:id="@+id/text1_1"
-                    android:text="효능/효과"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:text="효능/효과"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/mediEffect"
@@ -184,9 +188,9 @@
                 <View
                     android:layout_width="400dp"
                     android:layout_height="2dp"
+                    android:layout_marginLeft="6dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="6dp"
                     android:background="#152451"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -197,15 +201,15 @@
 
                 <TextView
                     android:id="@+id/text2"
-                    android:text="복용법"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:text="복용법"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/mediTake"
@@ -218,9 +222,9 @@
                 <View
                     android:layout_width="400dp"
                     android:layout_height="2dp"
+                    android:layout_marginLeft="6dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="6dp"
                     android:background="#152451"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -231,15 +235,15 @@
 
                 <TextView
                     android:id="@+id/text3"
-                    android:text="주의사항"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:text="주의사항"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/mediCaution"
@@ -252,9 +256,9 @@
                 <View
                     android:layout_width="400dp"
                     android:layout_height="2dp"
+                    android:layout_marginLeft="6dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="6dp"
                     android:background="#152451"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -265,15 +269,15 @@
 
                 <TextView
                     android:id="@+id/text33"
-                    android:text="유통기한"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:text="유통기한"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/mediPeriod"
@@ -286,9 +290,9 @@
                 <View
                     android:layout_width="400dp"
                     android:layout_height="2dp"
+                    android:layout_marginLeft="6dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="6dp"
                     android:background="#152451"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -299,15 +303,15 @@
 
                 <TextView
                     android:id="@+id/text30"
-                    android:text="포장 정보"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:text="포장 정보"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/mediPackaging"
@@ -320,9 +324,9 @@
                 <View
                     android:layout_width="400dp"
                     android:layout_height="2dp"
+                    android:layout_marginLeft="6dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="6dp"
                     android:background="#152451"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -333,15 +337,15 @@
 
                 <TextView
                     android:id="@+id/text4"
-                    android:text="지역 평균 가격"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:text="지역 평균 가격"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/avgPrice"
@@ -354,9 +358,9 @@
                 <View
                     android:layout_width="400dp"
                     android:layout_height="2dp"
+                    android:layout_marginLeft="6dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="6dp"
                     android:background="#152451"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -365,27 +369,28 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.938" />
 
-                <TextView
-                    android:id="@+id/text19"
-                    android:text="사용자 등록 약 가격"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:layout_marginBottom="10dp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/text19"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="10dp"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingEnd="10dp"-->
+<!--                    android:text="사용자 등록 약 가격"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="17dp"-->
+<!--                    android:textStyle="bold" />-->
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/mediUserRecyclerv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/mediUseRecyclerv"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content" />-->
 
             </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
 
     </LinearLayout>
 
-</FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

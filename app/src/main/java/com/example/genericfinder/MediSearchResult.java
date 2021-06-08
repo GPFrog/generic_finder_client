@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -140,12 +142,14 @@ public class MediSearchResult extends Fragment {
             String[] arr = rtResult.split(",");
             String medicineCode[] = new String[arr.length / 3];
             int cnt = 0;
+
             System.out.println("2번");
-            mAdapter = new SearchResultAdapter(view.getContext(), searchResultData);
+            mAdapter = new SearchResultAdapter(searchResultData);
             mRecyclerView.setAdapter(mAdapter);
             System.out.println("3번");
             data = new SearchResultData();
-            for (int i = 0; i < arr.length; i++) {
+
+            for (int i = 0; i < arr.length-1 ; i++) {
                 System.out.println("넣을 값 : " + arr[i]);
                 if ((i % 3) == 0) {
                     medicineCode[cnt] = arr[i];
@@ -346,6 +350,19 @@ public class MediSearchResult extends Fragment {
     }
     //########현재 주소 구하는 메서드 끝#########
 
+
+    public void replaceFragment(Fragment fragment) {
+//        ((MainActivity)getActivity()).replaceFragment(fragment);
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        System.out.println(fragment.getContext());
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+// parameter1 : activity 내에서 fragment 를 삽입할 Layout id
+// parameter2 : 삽입할 fragment
+        fragmentTransaction.add(R.id.container, fragment);
+        fragmentTransaction.commit();
+    }
 
     //무한 스크롤
 //    void dataMore() {

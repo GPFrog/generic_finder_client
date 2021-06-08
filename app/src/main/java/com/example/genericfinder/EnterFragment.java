@@ -80,7 +80,7 @@ public class EnterFragment extends Fragment {
                         //이메일, 권한 넘기기 위해 저장
                         SharedPreferences sharedEmail = getContext().getSharedPreferences("email",Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedEmail.edit();
-                        editor.putString("LogOnEmail",emailInput.getText().toString()); //key, value 형식으로 저장
+                        editor.putString("LogOnEmail", emailInput.getText().toString()); //key, value 형식으로 저장
 
                         if(arr[1].compareTo("1") == 0) {
                             //사용자
