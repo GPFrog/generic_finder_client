@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     Toolbar myToolBar;
     Fragment BookmarkFragment, EnterFragment, CurrentPosition, MedicineInfo, MedicineSearch,
-            MedicineSearchResult, SignUpFragment, PharmacyInfo, MedicinePriceDeleteU,
+            MedicineSearchResult, SignUpFragment, PharmacyInfo, MedicinePriceDeleteU0,
             MedicinePriceDeleteA, MedicinePriceEnroll;
     NavigationView nav_view;
 
@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
         MedicineSearch = new MedicineSearch();
         PharmacyInfo = new PharmacyInfo();
         BookmarkFragment = new BookmarkFragment();
-        MedicinePriceDeleteU = new MedicinePriceDeleteU();
+        MedicinePriceEnroll = new MedicinePriceEnroll();
+        MedicinePriceDeleteU0 = new MedicinePriceDeleteU0();
         MedicinePriceDeleteA = new MedicinePriceDeleteA();
 
         nav_view = findViewById(R.id.nav_view);
@@ -75,10 +76,7 @@ public class MainActivity extends AppCompatActivity {
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                SharedPreferences sh = getSharedPreferences("bookmark", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sh.edit();
-//                editor.putString("bookmark", "");
-//                editor.commit();
+
                 //값 가져오는 코드
                 SharedPreferences sharedPreferences = getSharedPreferences("email", Context.MODE_PRIVATE);
                 String id = sharedPreferences.getString("LogOnEmail","");
@@ -99,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.menu_priceDelete:
                         Toast.makeText(getApplicationContext(), "약 가격 삭제", Toast.LENGTH_SHORT).show();
+                        replaceFragment(MedicinePriceDeleteU0);
                         //비회원이면 안된다는 메시지, 로그인 화면으로 전환
 //                        if(nav_email.getText().toString().compareTo("")==0) {
 //                            Toast.makeText(getApplicationContext(), "로그인이 필요한 메뉴입니다.", Toast.LENGTH_SHORT).show();
@@ -188,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void replaceFragment(Fragment fragment) {
-        System.out.println(fragment.getContext());
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택

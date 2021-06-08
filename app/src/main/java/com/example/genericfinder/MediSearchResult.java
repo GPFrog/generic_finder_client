@@ -59,12 +59,14 @@ public class MediSearchResult extends Fragment {
     ArrayList<SearchResultData> searchResultData = null;
 
     SearchResultData data;
-    Button filterBtn;
+    Button backBtn;
     Bundle getBundle;
     String searchName;
     String searchIngredient;
     String searchCompany;
     String searchEffect;
+
+    Fragment medicineSearch;
 
     public MediSearchResult() {
         // Required empty public constructor
@@ -87,6 +89,8 @@ public class MediSearchResult extends Fragment {
         Context context = view.getContext();
         mRecyclerView = view.findViewById(R.id.resultRecyclev);
         mRecyclerView.setHasFixedSize(true);
+
+        medicineSearch = new MedicineSearch();
 
         mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -169,17 +173,11 @@ public class MediSearchResult extends Fragment {
 //        System.out.println("name : " + searchName + ", ingredient : " + searchIngredient + ", company : " + searchCompany + ", effect : " + searchEffect);
 //        mAdapter.getString(searchName, searchIngredient, searchCompany, searchEffect);
 
-        filterBtn = view.findViewById(R.id.filterBtn);
-        filterBtn.setOnClickListener(new View.OnClickListener() {
+        backBtn = view.findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //필터 버튼 (필터 팝업 띄우기)
-                //검색 결과 보내기
-                Bundle bundle = new Bundle();
-
-                FilterPopup fpopup = new FilterPopup();
-                fpopup.setArguments(bundle);
-                fpopup.show(getActivity().getSupportFragmentManager(), "FilterPopup");
+                ((MainActivity)getActivity()).replaceFragment(medicineSearch);
             }
         });
 
