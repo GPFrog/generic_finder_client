@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     Toolbar myToolBar;
     Fragment BookmarkFragment, EnterFragment, CurrentPosition, MedicineInfo, MedicineSearch,
-            MedicineSearchResult, SignUpFragment, PharmacyInfo, MedicinePriceDeleteU,
+            MedicineSearchResult, SignUpFragment, PharmacyInfo, MedicinePriceDeleteU0,
             MedicinePriceDeleteA, MedicinePriceEnroll;
     NavigationView nav_view;
 
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         PharmacyInfo = new PharmacyInfo();
         BookmarkFragment = new BookmarkFragment();
         MedicinePriceEnroll = new MedicinePriceEnroll();
-        MedicinePriceDeleteU = new MedicinePriceDeleteU();
+        MedicinePriceDeleteU0 = new MedicinePriceDeleteU0();
         MedicinePriceDeleteA = new MedicinePriceDeleteA();
 
         nav_view = findViewById(R.id.nav_view);
@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.menu_priceDelete:
                         Toast.makeText(getApplicationContext(), "약 가격 삭제", Toast.LENGTH_SHORT).show();
+                        replaceFragment(MedicinePriceDeleteU0);
                         //비회원이면 안된다는 메시지, 로그인 화면으로 전환
 //                        if(nav_email.getText().toString().compareTo("")==0) {
 //                            Toast.makeText(getApplicationContext(), "로그인이 필요한 메뉴입니다.", Toast.LENGTH_SHORT).show();

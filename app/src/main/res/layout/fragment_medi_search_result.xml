@@ -11,12 +11,12 @@
         android:layout_height="600dp">
 
         <Button
-            android:id="@+id/filterBtn"
+            android:id="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_background"
             android:textColor="@color/white"
-            android:text="필터"
+            android:text="이전"
             android:textStyle="bold"
             android:textSize="17dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,7 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filterBtn"
+            app:layout_constraintTop_toBottomOf="@+id/backBtn"
             app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
