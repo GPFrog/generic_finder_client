@@ -52,7 +52,6 @@ public class MedicineSearch extends Fragment {
 
         MediSearchResult = new MediSearchResult();
         searchResultAdapter = new SearchResultAdapter();
-        FilterPopup = new FilterPopup();
         searchResultData = new ArrayList<>();
         data = new SearchResultData();
 
@@ -68,53 +67,6 @@ public class MedicineSearch extends Fragment {
                     bundle.putString("searchIngredient", searchIngredient.getText().toString());
                     bundle.putString("searchCompany", searchCompany.getText().toString());
                     bundle.putString("searchEffect", searchEffect.getText().toString());
-                    RequestTask requestTask = new RequestTask();
-                    String rtResult = null;
-                    String url = "http://152.70.89.118:4321/";
-                    String tmp = "";
-
-//                    try {
-//                        if(name != "") tmp += ("name=" + name);
-//                        if(ingredient != "") {
-//                            if(tmp == "") tmp += ("medicineIngredient=" + ingredient);
-//                            else tmp += ("&activeingredient=" + ingredient);
-//                        }
-//                        if(company != "") {
-//                            if(tmp == "") tmp += ("company=" + company);
-//                            else tmp += ("&company=" + company);
-//                        }
-//                        if (effect != "") {
-//                            if(tmp == "") tmp += ("effect=" + effect);
-//                            else tmp += ("&symptom=" + effect);
-//                        }
-//                        System.out.println(tmp);
-
-//                        rtResult = requestTask.execute(url + "medicineLookup?name=" + searchName.getText().toString() + "&activeingredient=" + searchIngredient.getText().toString()
-//                                + "&company=" + searchCompany.getText().toString() + "&symptom=" + searchEffect.getText().toString()).get();
-//                        rtResult = rtResult.replaceAll("\"", "");
-//                        String arr[] = rtResult.split("/");
-//                        String medicineCode[] = new String[rtResult.length() % 3];
-//                        int cnt = 0;
-//
-//                        System.out.println("길이 : " + arr.length);
-//
-//                        for(int i=0 ; i<arr.length ; i++) {
-//                            System.out.println("넣을 값 : " + arr[i]);
-//                            if((i % 3) == 0) {
-//                                medicineCode[cnt] = arr[i];
-//                                cnt++;
-//                            }
-//                            else if((i % 3) == 1) {
-//                                data.setResultName(arr[i]);
-//                            }
-//                            else if((i % 3) == 2) {
-//                                data.setResultPrice(arr[i]);
-//                                searchResultAdapter.addItem(data);
-//                            }
-//                        }
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
 
                     Toast.makeText(view.getContext(),"검색 완료 후 페이지 이동", Toast.LENGTH_SHORT);
                     ((MainActivity)getActivity()).replaceFragment(MediSearchResult);

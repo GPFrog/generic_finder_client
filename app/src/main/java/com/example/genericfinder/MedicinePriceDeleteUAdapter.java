@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.genericfinder.httpConnector.RequestTask;
@@ -19,6 +20,7 @@ import com.example.genericfinder.httpConnector.RequestTask;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -28,9 +30,18 @@ public class MedicinePriceDeleteUAdapter extends RecyclerView.Adapter<MedicinePr
     LayoutInflater mInflater;
     Context context;
 
+    public MedicinePriceDeleteUAdapter() { }
+
     public MedicinePriceDeleteUAdapter(Context context) {mInflater = LayoutInflater.from(context);}
 
     public MedicinePriceDeleteUAdapter(ArrayList<MedicinePriceUData> mpUData) {this.mpUData = mpUData;}
+
+    public MedicinePriceDeleteUAdapter(Context context, ArrayList<MedicinePriceUData> mpUData) {
+        mInflater = LayoutInflater.from(context);
+        this.mpUData = mpUData;
+    }
+
+
 
     @NonNull
     @Override
@@ -41,22 +52,25 @@ public class MedicinePriceDeleteUAdapter extends RecyclerView.Adapter<MedicinePr
 
     @Override
     public void onBindViewHolder(@NonNull MedicinePriceDeleteUAdapter.MedicineDeleteUViewHolder holder, int position) {
-//        holder.onBind(mpUData.get(position));
+        holder.onBind(mpUData.get(position));
 
-//        holder.enrollDate.setText(mpUData.get(position).getEnrollDate());
-//        holder.pName.setText(mpUData.get(position).getpName());
-//        holder.mName.setText(mpUData.get(position).getmName());
-//        holder.mPrice.setText(mpUData.get(position).getmPrice());
+        holder.enrollDate.setText(mpUData.get(position).getEnrollDate());
+        holder.pName.setText(mpUData.get(position).getpName());
+        holder.mName.setText(mpUData.get(position).getmName());
+        holder.mPrice.setText(mpUData.get(position).getmPrice());
     }
 
     @Override
     public int getItemCount() {return mpUData.size();}
 
-    void addItem(MedicinePriceUData data) {mpUData.add(data);}
+    void addItem(MedicinePriceUData data) {
+        System.out.println("데이터 추가 : "+ data.getmPrice());
+        mpUData.add(data);
+    }
 
     class MedicineDeleteUViewHolder extends RecyclerView.ViewHolder {
-        TextView enrollDate, pName, mName, mPrice;
-        Button deleteBtn;
+        public TextView enrollDate, pName, mName, mPrice;
+        public Button deleteBtn;
         MedicinePriceDeleteUAdapter mAdapter;
         SharedPreferences sharedPreferences;
 
@@ -69,30 +83,15 @@ public class MedicinePriceDeleteUAdapter extends RecyclerView.Adapter<MedicinePr
             mPrice = itemView.findViewById(R.id.mPrice);
             deleteBtn = itemView.findViewById(R.id.deleteBtn);
 
-            RequestTask requestTask = new RequestTask();
-            sharedPreferences = itemView.getContext().getSharedPreferences("id", MODE_PRIVATE);
-            String id = sharedPreferences.toString();
+            sharedPreferences = itemView.getContext().getSharedPreferences("email", MODE_PRIVATE);
+            String id = sharedPreferences.getString("LogOnEmail","");
+            System.out.println("로그인 아이디 받아온거 = "+id);
             
             //아이디로 이메일 들고와서 약 등록 list 띄우기
-            String rt = null;
 
             try {
-                rt = requestTask.execute("", "id=" + id).get();
-                JSONObject json = new JSONObject(rt);
-                JSONArray jsonArray = json.getJSONArray("priceInfoArray");
-
-                for(int i=0 ; i<jsonArray.length() ; i++) {
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    enrollDate.setText(object.getString("enrollDate"));
-                    pName.setText(object.getString("pharmacyName"));
-                    mName.setText(object.getString("medicineName"));
-                    mPrice.setText(object.getString("medicinePrice"));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            //삭제 버튼
+                System.out.println("1번");
+                //삭제 버튼
             deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -104,16 +103,25 @@ public class MedicinePriceDeleteUAdapter extends RecyclerView.Adapter<MedicinePr
                         public void onClick(DialogInterface dialog, int which) {
                             //날짜, 약 이름, 사용자 이메일로 약 가격 삭제
                             //사용자 아이디 보내면 서버에서 이메일 찾아서 해야할듯
+                            RequestTask requestTask = new RequestTask();
                             String rtResult = null;
+                            String url = "http://152.70.89.118:4321/";
 
                             try {
-                                rtResult = requestTask.execute("", "enrollDate=" + enrollDate.toString(), "&mName=" + mName.toString(), "&id=" + id).get();
-                                JSONObject jsonObject = new JSONObject();
-                                
-                                if(jsonObject.toString().contains("true")) Toast.makeText(itemView.getContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                                else Toast.makeText(itemView.getContext(), "삭제에 실패했습니다.", Toast.LENGTH_LONG).show();
+                                rtResult = requestTask.execute(url + "medicinePriceDelete?email="+id+"&date="+enrollDate.getText().toString()
+                                        +"&bussiness_number="+pName.getText().toString()
+                                        +"&medicine_name="+mName.getText().toString()
+                                        +"&price="+mPrice.getText().toString()).get();
+
+                                rtResult = rtResult.replaceAll("\"", "");
+
+                                if (rtResult.compareTo("ok")==0){
+                                    Toast.makeText(itemView.getContext(), "삭제 성공!", Toast.LENGTH_SHORT).show();
+                                }
+
                             } catch (Exception e) {
                                 e.printStackTrace();
+                                Toast.makeText(itemView.getContext(), "삭제 성공!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -130,13 +138,17 @@ public class MedicinePriceDeleteUAdapter extends RecyclerView.Adapter<MedicinePr
             });
 
             this.mAdapter = adapter;
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
-//        void onBind(MedicinePriceUData data) {
-//            enrollDate.setText(data.getEnrollDate());
-//            pName.setText(data.getpName());
-//            mName.setText(data.getmName());
-//            mPrice.setText(data.getmPrice());
-//        }
+        void onBind (MedicinePriceUData data) {
+            enrollDate.setText(data.getEnrollDate());
+            pName.setText(data.getpName());
+            mName.setText(data.getmName());
+            mPrice.setText(data.getmPrice());
+        }
     }
 }
